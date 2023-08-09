@@ -1,4 +1,4 @@
-package com.cinematica.backend.app
+package com.cinematica.backend.foundation.cli
 
 @JvmInline
 value class Arguments(private val array: Array<String>) {

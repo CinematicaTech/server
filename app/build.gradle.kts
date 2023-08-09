@@ -7,19 +7,12 @@ plugins {
 }
 
 dependencies {
-    // GRPC
+    implementation(libs.slf4j.nop)
+
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
 
-   implementation(libs.slf4j.nop)
-}
-
-kotlin {
-    jvmToolchain(11)
-}
-
-tasks.test {
-    useJUnitPlatform()
+    implementation(projects.foundation.cliArguments)
 }
 
 application {

@@ -1,13 +1,7 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
-
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -15,6 +9,16 @@ dependencyResolutionManagement {
     }
 }
 
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
+}
+
+
 rootProject.name = "cinematica-server"
 
 include(":app")
+include(":foundation:cli-arguments")
