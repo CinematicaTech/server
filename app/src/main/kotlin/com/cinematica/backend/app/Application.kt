@@ -2,6 +2,7 @@ package com.cinematica.backend.app
 
 import com.cinematica.backend.app.constants.ArgumentsConstants
 import com.cinematica.backend.app.constants.EnvironmentConstants
+import com.cinematica.backend.domain.authorization.routes.authorizationRouting
 import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import io.ktor.server.application.*
@@ -17,8 +18,9 @@ fun main(args: Array<String>) {
         ?: System.getenv(EnvironmentConstants.APPLICATION_PORT)?.toIntOrNull()
         ?: 8080
 
-    embeddedServer(Netty, port  ) {
+    embeddedServer(Netty, port) {
         routing {
+            authorizationRouting()
             get("/hello") {
                 call.respond("Hello Fucking World")
             }

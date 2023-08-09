@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
 
+    implementation(projects.domain.authorization)
     implementation(projects.foundation.cliArguments)
 }
 
