@@ -29,5 +29,4 @@ data class SignUpRequest(
             "Validation error occurred."
         }
     }
-
 }
