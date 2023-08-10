@@ -1,4 +1,4 @@
-package com.cinematica.backend.domain.authorization.types.response
+package com.cinematica.backend.domain.authorization.types.state
 
 import kotlinx.serialization.Serializable
 

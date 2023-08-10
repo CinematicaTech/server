@@ -1,6 +1,6 @@
 package com.cinematica.backend.domain.authorization.routes.state
 
-import com.cinematica.backend.domain.authorization.types.request.AuthorizationStateRequest
+import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateRequest
 import com.cinematica.backend.domain.authorization.usecases.GetAuthorizationStateUseCase
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call

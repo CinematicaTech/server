@@ -1,5 +1,6 @@
 package com.cinematica.backend.domain.authorization.routes
 
+import com.cinematica.backend.domain.authorization.routes.signup.signUpRouting
 import com.cinematica.backend.domain.authorization.routes.state.authorizationStateRouting
 import com.cinematica.backend.domain.authorization.usecases.GetAuthorizationStateUseCase
 import io.ktor.server.application.Application
@@ -12,5 +13,6 @@ fun Application.configureAuthorizationRouting(
         authorizationStateRouting(
             getAuthorizationStateUseCase = getAuthorizationStateUseCase
         )
+        signUpRouting()
     }
 }
