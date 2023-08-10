@@ -6,6 +6,7 @@ ktor = "2.3.0"
 koin = "3.4.2"
 koin-annotations = "1.2.2"
 kmongo = "4.8.0"
+valiktor = "0.12.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -34,6 +35,8 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 
 kmongo-core = { module = "org.litote.kmongo:kmongo", version.ref = "kmongo" }
 kmongo-coroutines = { module = "org.litote.kmongo:kmongo-coroutine", version.ref = "kmongo" }
+
+valiktor-core = { module = "org.valiktor:valiktor-core", version.ref = "valiktor" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-anotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }

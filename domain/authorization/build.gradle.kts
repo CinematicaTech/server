@@ -6,5 +6,5 @@ plugins {
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(projects.foundation.validation)
+    implementation(libs.valiktor.core)
 }

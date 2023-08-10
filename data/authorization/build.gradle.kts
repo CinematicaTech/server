@@ -8,5 +8,4 @@ dependencies {
     implementation(libs.kmongo.coroutines)
 
     implementation(projects.domain.authorization)
-    implementation(projects.foundation.validation)
 }
