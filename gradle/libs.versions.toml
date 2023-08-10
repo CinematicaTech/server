@@ -3,7 +3,8 @@ kotlin = "1.9.0"
 kotlinx-coroutines = "1.6.4"
 kotlinx-serialization = "1.4.1"
 ktor = "2.3.0"
-koin = "3.4.0"
+koin = "3.4.2"
+koin-annotations = "1.2.2"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version = "1.9.0" }
@@ -29,6 +30,9 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-anotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-annotations" }
 
 [plugins]
 kotlin-main = { id = "kotlin", version.ref = "kotlin" }

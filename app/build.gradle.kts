@@ -11,8 +11,15 @@ dependencies {
 
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.call.logging)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.server.content.negotiation)
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.anotations)
 
     implementation(projects.domain.authorization)
+    implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
 }
 
