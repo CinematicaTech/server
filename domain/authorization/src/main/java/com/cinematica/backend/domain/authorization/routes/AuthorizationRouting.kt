@@ -1,7 +1,8 @@
 package com.cinematica.backend.domain.authorization.routes
 
+import com.cinematica.backend.domain.authorization.routes.state.authorizationStateRouting
 import io.ktor.server.routing.Route
 
-fun Route.authorizationRouting() {
-    signUpRouting()
+fun Route.configureAuthorizationRouting() {
+    authorizationStateRouting()
 }
