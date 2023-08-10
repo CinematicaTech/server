@@ -28,3 +28,7 @@ include(
 include(
     ":domain:authorization",
 )
+
+include(
+    ":data:authorization",
+)
