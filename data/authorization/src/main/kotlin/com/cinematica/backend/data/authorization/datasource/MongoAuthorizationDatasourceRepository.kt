@@ -14,6 +14,8 @@ class MongoAuthorizationDatasourceRepository(
     private val usersCollection = database.getCollection<User>("users")
     override suspend fun insertUser(signUpData: SignUpData) {
         val user = authorizationDataMapper.mapToUser(signUpData)
-        usersCollection.insertOne(user)
+        val result = usersCollection.insertOne(user)
+        val data = usersCollection.find().first()
+        println(data)
     }
 }

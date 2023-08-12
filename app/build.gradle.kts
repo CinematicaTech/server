@@ -18,6 +18,9 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.anotations)
 
+    implementation(libs.kmongo.core)
+    implementation(libs.kmongo.coroutines)
+
     implementation(projects.domain.authorization)
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
