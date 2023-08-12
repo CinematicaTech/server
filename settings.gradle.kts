@@ -23,6 +23,7 @@ include(":app")
 
 include(
     ":foundation:cli-arguments",
+    ":foundation:security",
 )
 
 include(
