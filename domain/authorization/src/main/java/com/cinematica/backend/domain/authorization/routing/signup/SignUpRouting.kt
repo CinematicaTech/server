@@ -27,6 +27,6 @@ fun Route.signUpRouting(
 
         val result = signUpUseCase.execute(signUpData)
 
-        call.respond(HttpStatusCode.OK)
+        call.respond(HttpStatusCode.OK, result)
     }
 }

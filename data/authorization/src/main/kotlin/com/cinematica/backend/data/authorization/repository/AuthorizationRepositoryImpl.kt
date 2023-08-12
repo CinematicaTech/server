@@ -2,19 +2,28 @@ package com.cinematica.backend.data.authorization.repository
 
 import com.cinematica.backend.domain.authorization.datasource.AuthorizationDatasourceRepository
 import com.cinematica.backend.domain.authorization.repository.AuthorizationRepository
+import com.cinematica.backend.domain.authorization.types.SuccessfulAuthorizationResponse
 import com.cinematica.backend.domain.authorization.types.signup.SignUpData
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationState
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateData
+import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateResponse
 
 class AuthorizationRepositoryImpl(
     private val authorizationDatasourceRepository: AuthorizationDatasourceRepository
 ) : AuthorizationRepository {
 
-    override suspend fun signUp(signUpData: SignUpData) {
-        authorizationDatasourceRepository.insertUser(signUpData)
+    override suspend fun signUp(signUpData: SignUpData): SuccessfulAuthorizationResponse {
+        val result = authorizationDatasourceRepository.insertUser(signUpData)
+        return SuccessfulAuthorizationResponse(
+            token = ""
+        )
     }
 
-    override suspend fun state(authorizationStateData: AuthorizationStateData): AuthorizationState {
-        return authorizationDatasourceRepository.getState(authorizationStateData)
+    override suspend fun state(
+        authorizationStateData: AuthorizationStateData
+    ): AuthorizationStateResponse {
+        return AuthorizationStateResponse(
+            state = authorizationDatasourceRepository.getState(authorizationStateData).value
+        )
     }
 }
