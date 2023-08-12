@@ -8,6 +8,7 @@ import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
 import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
 import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
+import com.cinematica.backend.domain.authorization.usecases.state.AuthorizationStateUseCase
 import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import io.ktor.server.engine.embeddedServer
@@ -44,7 +45,8 @@ fun main(args: Array<String>) {
         configureMonitoring()
         configureSerialization()
         configureAuthorizationRouting(
-            signUpUseCase = koin.get<SignUpUseCase>()
+            signUpUseCase = koin.get<SignUpUseCase>(),
+            authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
         )
         println("Server started on address: http://127.0.0.1:$port")
     }.start(true)
