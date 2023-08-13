@@ -11,6 +11,8 @@ import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
 import com.cinematica.backend.domain.authorization.usecases.state.AuthorizationStateUseCase
 import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
+import com.cinematica.backend.foundation.security.token.data.TokenConfig
+import com.typesafe.config.ConfigFactory
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import org.koin.core.context.startKoin
@@ -30,11 +32,31 @@ fun main(args: Array<String>) {
         ?: System.getenv(EnvironmentConstants.APPLICATION_DATABASE_URL)
         ?: error(FailureMessages.MISSING_DATABASE_URL)
 
+    val secret = arguments.getNamedOrNull(ArgumentsConstants.SECRET)
+        ?: System.getenv(EnvironmentConstants.APPLICATION_SECRET)
+        ?: error(FailureMessages.MISSING_SECRET)
+
+    val issuer = arguments.getNamedOrNull(ArgumentsConstants.ISSUER)
+        ?: System.getenv(EnvironmentConstants.APPLICATION_ISSUER)
+        ?: error(FailureMessages.MISSING_ISSUER)
+
+    val audience = arguments.getNamedOrNull(ArgumentsConstants.AUDIENCE)
+        ?: System.getenv(EnvironmentConstants.APPLICATION_AUDIENCE)
+        ?: error(FailureMessages.MISSING_AUDIENCE)
+
     val coroutineClient = KMongo.createClient(databaseUrl).coroutine
     val database = coroutineClient.getDatabase("cinematica_database")
 
     val dynamicModule = module {
         single<CoroutineDatabase> { database }
+        single<TokenConfig> {
+            TokenConfig(
+                issuer = issuer,
+                audience = audience,
+                expiresIn = 365L * 1000L * 60L * 60L * 24L,
+                secret = secret
+            )
+        }
     }
 
     val koin = startKoin {
