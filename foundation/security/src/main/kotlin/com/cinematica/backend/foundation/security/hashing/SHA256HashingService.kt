@@ -1,5 +1,6 @@
 package com.cinematica.backend.foundation.security.hashing
 
+import com.cinematica.backend.foundation.security.hashing.data.SaltedHash
 import org.apache.commons.codec.binary.Hex
 import org.apache.commons.codec.digest.DigestUtils
 import java.security.SecureRandom

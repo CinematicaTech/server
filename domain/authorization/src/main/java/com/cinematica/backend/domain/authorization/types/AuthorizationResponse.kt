@@ -1,5 +1,5 @@
 package com.cinematica.backend.domain.authorization.types
 
-data class SuccessfulAuthorizationResponse(
+data class AuthorizationResponse(
     val token: String
 )

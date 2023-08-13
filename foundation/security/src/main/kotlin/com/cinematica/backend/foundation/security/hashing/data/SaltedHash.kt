@@ -1,4 +1,4 @@
-package com.cinematica.backend.foundation.security.hashing
+package com.cinematica.backend.foundation.security.hashing.data
 
 data class SaltedHash(
     val hash: String,

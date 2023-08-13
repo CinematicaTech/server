@@ -24,6 +24,7 @@ dependencies {
     implementation(projects.domain.authorization)
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
+    implementation(projects.foundation.security)
 }
 
 application {

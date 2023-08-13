@@ -7,5 +7,6 @@ dependencies {
     implementation(libs.kmongo.core)
     implementation(libs.kmongo.coroutines)
 
+    implementation(projects.foundation.security)
     implementation(projects.domain.authorization)
 }

@@ -20,7 +20,7 @@ val AuthorizationModule = module {
             database = get()
         )
     }
-    single<AuthorizationRepository> { AuthorizationRepositoryImpl(get()) }
+    single<AuthorizationRepository> { AuthorizationRepositoryImpl(get(), get(), get()) }
     singleOf(::SignUpUseCase)
     singleOf(::AuthorizationStateUseCase)
 }
