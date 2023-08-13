@@ -3,8 +3,8 @@ package com.cinematica.backend.data.authorization.repository
 import com.cinematica.backend.domain.authorization.datasource.AuthorizationDatasourceRepository
 import com.cinematica.backend.domain.authorization.mapper.AuthorizationDomainMapper
 import com.cinematica.backend.domain.authorization.repository.AuthorizationRepository
-import com.cinematica.backend.domain.authorization.types.AuthorizationResponse
-import com.cinematica.backend.domain.authorization.types.signup.SignUpRequest
+import com.cinematica.backend.domain.authorization.types.common.AuthorizationRequest
+import com.cinematica.backend.domain.authorization.types.common.AuthorizationResponse
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateData
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateResponse
 import com.cinematica.backend.foundation.security.hashing.HashingService
@@ -20,9 +20,11 @@ class AuthorizationRepositoryImpl(
     private val tokenConfig: TokenConfig,
 ) : AuthorizationRepository {
 
-    override suspend fun signUp(signUpRequest: SignUpRequest): AuthorizationResponse {
-        val saltedHash = hashingService.generateSaltedHash(signUpRequest.password)
-        val signUpData = authorizationDomainMapper.mapToSignUpData(signUpRequest, saltedHash)
+    override suspend fun signUp(
+        authorizationRequest: AuthorizationRequest
+    ): AuthorizationResponse {
+        val saltedHash = hashingService.generateSaltedHash(authorizationRequest.password)
+        val signUpData = authorizationDomainMapper.mapToSignUpData(authorizationRequest, saltedHash)
         val token = tokenService.generate(
             config = tokenConfig,
             TokenClaim(

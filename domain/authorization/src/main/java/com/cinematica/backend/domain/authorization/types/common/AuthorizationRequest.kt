@@ -1,4 +1,4 @@
-package com.cinematica.backend.domain.authorization.types.signup
+package com.cinematica.backend.domain.authorization.types.common
 
 import kotlinx.serialization.Serializable
 import org.valiktor.ConstraintViolationException
@@ -10,14 +10,14 @@ import org.valiktor.validate
 import java.util.Locale
 
 @Serializable
-data class SignUpRequest(
+data class AuthorizationRequest(
     val email: String,
     val password: String
 ) {
     val validationErrorMessage: String? = runCatching {
         validate(this) {
-            validate(SignUpRequest::email).isEmail()
-            validate(SignUpRequest::password).isNotBlank().hasSize(min = 6, max = 40)
+            validate(AuthorizationRequest::email).isEmail()
+            validate(AuthorizationRequest::password).isNotBlank().hasSize(min = 6, max = 40)
         }
     }.exceptionOrNull()?.let { e ->
         if (e is ConstraintViolationException) {

@@ -7,6 +7,7 @@ import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
 import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
+import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
 import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
 import com.cinematica.backend.domain.authorization.usecases.state.AuthorizationStateUseCase
 import com.cinematica.backend.foundation.cli.asArguments
@@ -68,6 +69,7 @@ fun main(args: Array<String>) {
         configureSerialization()
         configureAuthorizationRouting(
             signUpUseCase = koin.get<SignUpUseCase>(),
+            signInUseCase = koin.get<SignInUseCase>(),
             authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
         )
         println("Server started on address: http://127.0.0.1:$port")
