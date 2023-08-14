@@ -5,6 +5,7 @@ import com.cinematica.backend.data.authorization.repository.AuthorizationReposit
 import com.cinematica.backend.domain.authorization.datasource.AuthorizationDatasourceRepository
 import com.cinematica.backend.domain.authorization.mapper.AuthorizationDomainMapper
 import com.cinematica.backend.data.authorization.mapper.AuthorizationDataMapper
+import com.cinematica.backend.data.authorization.mapper.AuthorizationDatasourceMapper
 import com.cinematica.backend.domain.authorization.repository.AuthorizationRepository
 import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
 import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
@@ -15,13 +16,22 @@ import org.koin.dsl.module
 val AuthorizationModule = module {
     singleOf(::AuthorizationDomainMapper)
     singleOf(::AuthorizationDataMapper)
+    singleOf(::AuthorizationDatasourceMapper)
     single<AuthorizationDatasourceRepository> {
         MongoAuthorizationDatasourceRepository(
             authorizationDataMapper = get(),
-            database = get()
+            authorizationDatasourceMapper = get(),
+            database = get(),
         )
     }
-    single<AuthorizationRepository> { AuthorizationRepositoryImpl(get(), get(), get(), get(), get()) }
+    single<AuthorizationRepository> { AuthorizationRepositoryImpl(
+        authorizationDatasourceRepository = get(),
+        get(),
+        get(),
+        get(),
+        get(),
+        get()
+    ) }
     singleOf(::SignUpUseCase)
     singleOf(::SignInUseCase)
     singleOf(::AuthorizationStateUseCase)

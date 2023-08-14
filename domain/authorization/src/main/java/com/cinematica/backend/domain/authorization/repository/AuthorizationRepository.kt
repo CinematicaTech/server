@@ -9,5 +9,7 @@ interface AuthorizationRepository {
 
     suspend fun signUp(authorizationRequest: AuthorizationRequest): AuthorizationResponse
 
+    suspend fun signIn(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse>
+
     suspend fun state(authorizationStateData: AuthorizationStateData): AuthorizationStateResponse
 }
