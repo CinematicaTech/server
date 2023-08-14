@@ -30,6 +30,5 @@ fun Route.signUpRouting(
         result.getOrNull()?.let { request ->
             call.respond(HttpStatusCode.OK, request)
         } ?: call.respond(HttpStatusCode.BadRequest, result.exceptionOrNull()?.message.toString())
-        return@post
     }
 }
