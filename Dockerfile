@@ -11,7 +11,7 @@ ENV SERVER_PORT=8080
 RUN apk update && apk add --no-cache wget
 
 # Set the desired version of your backend JAR file
-ARG JAR_VERSION=v0.0.1
+ARG JAR_VERSION=v0.0.2
 
 # Set the download URL for the JAR file
 ARG JAR_DOWNLOAD_URL=https://github.com/CinematicaUA/server/releases/download/${JAR_VERSION}/application.jar
