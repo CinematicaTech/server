@@ -7,7 +7,7 @@ import com.cinematica.backend.domain.authorization.types.common.AuthorizationRes
 class SignUpUseCase(
     private val authorizationRepository: AuthorizationRepository,
 ) {
-    suspend fun execute(authorizationRequest: AuthorizationRequest): AuthorizationResponse {
+    suspend fun execute(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse> {
         return authorizationRepository.signUp(authorizationRequest)
     }
 }

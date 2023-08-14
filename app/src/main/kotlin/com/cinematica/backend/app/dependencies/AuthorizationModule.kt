@@ -26,11 +26,10 @@ val AuthorizationModule = module {
     }
     single<AuthorizationRepository> { AuthorizationRepositoryImpl(
         authorizationDatasourceRepository = get(),
-        get(),
-        get(),
-        get(),
-        get(),
-        get()
+        hashingService = get(),
+        tokenService = get(),
+        authorizationDomainMapper = get(),
+        tokenConfig = get(),
     ) }
     singleOf(::SignUpUseCase)
     singleOf(::SignInUseCase)

@@ -1,6 +1,5 @@
 package com.cinematica.backend.data.authorization.repository
 
-import com.cinematica.backend.data.authorization.mapper.AuthorizationDatasourceMapper
 import com.cinematica.backend.domain.authorization.datasource.AuthorizationDatasourceRepository
 import com.cinematica.backend.domain.authorization.mapper.AuthorizationDomainMapper
 import com.cinematica.backend.domain.authorization.repository.AuthorizationRepository
@@ -13,20 +12,24 @@ import com.cinematica.backend.foundation.security.hashing.data.SaltedHash
 import com.cinematica.backend.foundation.security.token.data.TokenClaim
 import com.cinematica.backend.foundation.security.token.data.TokenConfig
 import com.main.security.token.TokenService
-import org.apache.commons.codec.digest.DigestUtils
 
 class AuthorizationRepositoryImpl(
     private val authorizationDatasourceRepository: AuthorizationDatasourceRepository,
     private val hashingService: HashingService,
     private val tokenService: TokenService,
     private val authorizationDomainMapper: AuthorizationDomainMapper,
-    private val authorizationDatasourceMapper: AuthorizationDatasourceMapper,
     private val tokenConfig: TokenConfig,
 ) : AuthorizationRepository {
 
     override suspend fun signUp(
         authorizationRequest: AuthorizationRequest
-    ): AuthorizationResponse {
+    ): Result<AuthorizationResponse> {
+        val user = authorizationDatasourceRepository.getUserByEmail(
+            authorizationRequest.email
+        ).getOrNull()
+        if (user != null) {
+            return Result.failure(Exception("user is already exist"))
+        }
         val saltedHash = hashingService.generateSaltedHash(authorizationRequest.password)
         val signUpData = authorizationDomainMapper.mapToSignUpData(authorizationRequest, saltedHash)
         val token = tokenService.generate(
@@ -37,9 +40,7 @@ class AuthorizationRepositoryImpl(
             )
         )
         authorizationDatasourceRepository.insertUser(signUpData)
-        return AuthorizationResponse(
-            token = token
-        )
+        return Result.success(AuthorizationResponse(token = token))
     }
 
     override suspend fun signIn(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse> {

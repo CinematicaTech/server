@@ -7,7 +7,7 @@ import com.cinematica.backend.domain.authorization.types.state.AuthorizationStat
 
 interface AuthorizationRepository {
 
-    suspend fun signUp(authorizationRequest: AuthorizationRequest): AuthorizationResponse
+    suspend fun signUp(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse>
 
     suspend fun signIn(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse>
 
