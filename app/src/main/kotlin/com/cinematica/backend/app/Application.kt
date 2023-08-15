@@ -78,6 +78,7 @@ fun main(args: Array<String>) {
         )
         routing {
             get("/hello") {
+                println("hello world")
                 call.respond("HELLO FUC*ING")
             }
         }
