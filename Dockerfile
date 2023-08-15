@@ -5,7 +5,7 @@ FROM openjdk:19-alpine
 WORKDIR /app
 
 # Set the environment variable for the server port
-ENV SERVER_PORT=8089
+ENV SERVER_PORT=8080
 
 # Install wget utility for downloading files
 RUN apk update && apk add --no-cache wget
