@@ -14,8 +14,12 @@ import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import com.cinematica.backend.foundation.security.token.data.TokenConfig
 import com.typesafe.config.ConfigFactory
+import io.ktor.server.application.call
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.response.respond
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.CoroutineDatabase
@@ -72,6 +76,11 @@ fun main(args: Array<String>) {
             signInUseCase = koin.get<SignInUseCase>(),
             authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
         )
+        routing {
+            get("/hello") {
+                call.respond("HELLO FUC*ING")
+            }
+        }
         println("Server started on address: http://127.0.0.1:$port")
     }.start(true)
 }
