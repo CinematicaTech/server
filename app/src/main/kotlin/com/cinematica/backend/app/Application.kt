@@ -87,6 +87,7 @@ fun main(args: Array<String>) {
                 call.respond("HELLO FUC*ING")
             }
             post("/auth/signup") {
+                println("sign up")
                 val authorizationRequest = kotlin.runCatching {
                     call.receiveNullable<AuthorizationRequest>()
                 }.getOrNull() ?: kotlin.run {
