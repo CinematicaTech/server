@@ -1,9 +1,6 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow.jar)
-    application
 }
 
 dependencies {
@@ -25,13 +22,4 @@ dependencies {
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.security)
-}
-
-application {
-    mainClass.set("com.cinematica.backend.app.ApplicationKt")
-}
-
-tasks.withType<ShadowJar> {
-    archiveBaseName.set("application")
-    archiveClassifier.set("")
 }
