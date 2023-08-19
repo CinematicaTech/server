@@ -31,7 +31,7 @@ fun main(args: Array<String>) {
 
     val port = arguments.getNamedIntOrNull(ArgumentsConstants.PORT)
         ?: System.getenv(EnvironmentConstants.APPLICATION_PORT)?.toIntOrNull()
-        ?: 8080
+        ?: 443
 
     val databaseUrl = arguments.getNamedOrNull(ArgumentsConstants.DATABASE_URL)
         ?: System.getenv(EnvironmentConstants.APPLICATION_DATABASE_URL)
