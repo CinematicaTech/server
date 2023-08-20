@@ -82,6 +82,7 @@ fun main(args: Array<String>) {
         routing {
             get("/hello") {
                 val test = call.receive<Test>()
+                println("test: $test")
                 println("hello world")
                 call.respond("HELLO FUC*ING: $test")
             }
