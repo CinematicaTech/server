@@ -7,6 +7,7 @@ import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
 import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
+import com.cinematica.backend.domain.authorization.types.Test
 import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
 import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
 import com.cinematica.backend.domain.authorization.usecases.state.AuthorizationStateUseCase
@@ -17,9 +18,11 @@ import com.typesafe.config.ConfigFactory
 import io.ktor.server.application.call
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
+import kotlinx.serialization.Serializable
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.CoroutineDatabase
@@ -31,7 +34,7 @@ fun main(args: Array<String>) {
 
     val port = arguments.getNamedIntOrNull(ArgumentsConstants.PORT)
         ?: System.getenv(EnvironmentConstants.APPLICATION_PORT)?.toIntOrNull()
-        ?: 443
+        ?: 8080
 
     val databaseUrl = arguments.getNamedOrNull(ArgumentsConstants.DATABASE_URL)
         ?: System.getenv(EnvironmentConstants.APPLICATION_DATABASE_URL)
@@ -78,8 +81,9 @@ fun main(args: Array<String>) {
         )
         routing {
             get("/hello") {
+                val test = call.receive<Test>()
                 println("hello world")
-                call.respond("HELLO FUC*ING")
+                call.respond("HELLO FUC*ING: $test")
             }
         }
         println("Server started on address: http://127.0.0.1:$port")

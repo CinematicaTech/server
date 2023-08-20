@@ -5,7 +5,7 @@ FROM openjdk:19-alpine
 WORKDIR /app
 
 # Set the environment variable for the server port
-ENV SERVER_PORT=443
+ENV SERVER_PORT=8080
 
 # Install wget utility for downloading files
 RUN apk update && apk add --no-cache wget
@@ -20,7 +20,7 @@ ARG JAR_DOWNLOAD_URL=https://github.com/CinematicaUA/server/releases/download/${
 RUN wget --quiet --show-progress --no-cache --progress=bar: ${JAR_DOWNLOAD_URL} -O application.jar
 
 # Expose the port on which your application will run
-EXPOSE 443
+EXPOSE $SERVER_PORT
 
 # Set the command to run the application
 # Refer to the documentation on what environment variables should be set to run the application
