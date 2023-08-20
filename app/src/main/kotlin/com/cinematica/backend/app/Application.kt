@@ -1,3 +1,5 @@
+@file:Suppress("ExtractKtorModule")
+
 package com.cinematica.backend.app
 
 import com.cinematica.backend.app.constants.ArgumentsConstants

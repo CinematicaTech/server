@@ -1,6 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow.jar)
+    application
 }
 
 dependencies {
@@ -22,4 +26,13 @@ dependencies {
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.security)
+}
+
+application {
+    mainClass.set("io.timemates.backend.application.ApplicationKt")
+}
+
+tasks.withType<ShadowJar> {
+    archiveBaseName.set("application")
+    archiveClassifier.set("")
 }
