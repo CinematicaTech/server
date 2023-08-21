@@ -22,6 +22,10 @@ dependencies {
     implementation(libs.kmongo.core)
     implementation(libs.kmongo.coroutines)
 
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.mysql.connector)
+
     implementation(projects.domain.authorization)
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)

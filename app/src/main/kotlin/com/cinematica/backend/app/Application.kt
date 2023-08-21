@@ -27,6 +27,14 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import kotlinx.serialization.Serializable
+import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.insertAndGetId
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.CoroutineDatabase
@@ -75,6 +83,13 @@ fun main(args: Array<String>) {
         modules(AppModule + dynamicModule)
     }.koin
 
+    val mysqlDatabase = Database.connect(
+        url = "jdbc:mysql://your-database-url",
+        driver = "com.mysql.jdbc.Driver",
+        user = "your-username",
+        password = "your-password"
+    )
+
     embeddedServer(Netty, port) {
         configureMonitoring()
         configureSerialization()
@@ -86,13 +101,27 @@ fun main(args: Array<String>) {
         routing {
             get("/hello") {
                 val test = call.receive<Test>()
-                val usersCollection = database.getCollection<User>("users")
                 println("test: $test")
                 println("hello world")
-                val data = usersCollection.findOne(filter = "{ email: '${test.test}' }")
-                call.respond("$data + somee")
+
+                val a = transaction(mysqlDatabase) {
+                    SchemaUtils.create(Users)
+
+                    Users.insertAndGetId {
+                        it[username] = test.test
+                    }
+
+                    Users.select { Users.username eq test.test }.mapNotNull {
+                        Test(test = it[Users.username])
+                    }
+                }
+                call.respond("${a.first()} + somee")
             }
         }
         println("Server started on address: http://127.0.0.1:$port")
     }.start(true)
+}
+
+object Users : IntIdTable() {
+    val username = varchar("username", 50).uniqueIndex()
 }
