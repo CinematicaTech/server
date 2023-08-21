@@ -72,11 +72,11 @@ fun main(args: Array<String>) {
         ?: System.getenv("USER")
         ?: error("miss user")
 
-    val coroutineClient = KMongo.createClient(databaseUrl).coroutine
-    val database = coroutineClient.getDatabase("cinematica_database")
+//    val coroutineClient = KMongo.createClient(databaseUrl).coroutine
+//    val database = coroutineClient.getDatabase("cinematica_database")
 
     val dynamicModule = module {
-        single<CoroutineDatabase> { database }
+        // single<CoroutineDatabase> { database }
         single<TokenConfig> {
             TokenConfig(
                 issuer = issuer,
@@ -101,11 +101,11 @@ fun main(args: Array<String>) {
     embeddedServer(Netty, port) {
         configureMonitoring()
         configureSerialization()
-        configureAuthorizationRouting(
-            signUpUseCase = koin.get<SignUpUseCase>(),
-            signInUseCase = koin.get<SignInUseCase>(),
-            authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
-        )
+//        configureAuthorizationRouting(
+//            signUpUseCase = koin.get<SignUpUseCase>(),
+//            signInUseCase = koin.get<SignInUseCase>(),
+//            authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
+//        )
         routing {
             get("/hello") {
                 val test = call.receive<Test>()
