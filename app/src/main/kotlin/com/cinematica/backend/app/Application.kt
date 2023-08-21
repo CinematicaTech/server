@@ -64,6 +64,14 @@ fun main(args: Array<String>) {
         ?: System.getenv(EnvironmentConstants.APPLICATION_AUDIENCE)
         ?: error(FailureMessages.MISSING_AUDIENCE)
 
+    val password = arguments.getNamedOrNull("PASSWORD")
+        ?: System.getenv("PASSWORD")
+        ?: error("miss password")
+
+    val user = arguments.getNamedOrNull("USER")
+        ?: System.getenv("USER")
+        ?: error("miss user")
+
     val coroutineClient = KMongo.createClient(databaseUrl).coroutine
     val database = coroutineClient.getDatabase("cinematica_database")
 
@@ -84,10 +92,10 @@ fun main(args: Array<String>) {
     }.koin
 
     val mysqlDatabase = Database.connect(
-        url = "jdbc:mysql://your-database-url",
+        url = databaseUrl,
         driver = "com.mysql.jdbc.Driver",
-        user = "your-username",
-        password = "your-password"
+        user = user,
+        password = password
     )
 
     embeddedServer(Netty, port) {
