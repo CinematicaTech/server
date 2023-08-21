@@ -29,7 +29,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.timemates.backend.application.ApplicationKt")
+    mainClass.set("com.cinematica.backend.app.ApplicationKt")
 }
 
 tasks.withType<ShadowJar> {
