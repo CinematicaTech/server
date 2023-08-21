@@ -2,7 +2,7 @@
 kotlin = "1.9.0"
 kotlinx-coroutines = "1.6.4"
 kotlinx-serialization = "1.4.1"
-ktor = "2.3.0"
+ktor = "2.3.3"
 koin = "3.4.2"
 koin-annotations = "1.2.2"
 kmongo = "4.8.0"

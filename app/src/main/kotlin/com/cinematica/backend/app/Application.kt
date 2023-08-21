@@ -8,6 +8,7 @@ import com.cinematica.backend.app.constants.FailureMessages
 import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
+import com.cinematica.backend.data.authorization.entities.User
 import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
 import com.cinematica.backend.domain.authorization.types.Test
 import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
@@ -22,6 +23,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import kotlinx.serialization.Serializable
@@ -84,13 +86,11 @@ fun main(args: Array<String>) {
         routing {
             get("/hello") {
                 val test = call.receive<Test>()
-                val databaseTest = koin.get<CoroutineDatabase>()
-                val collection = databaseTest.getCollection<Test>("test")
-                val result = collection.insertOne(test)
-                println("test result: ${result.insertedId}")
+                val usersCollection = database.getCollection<User>("users")
                 println("test: $test")
                 println("hello world")
-                call.respond("HELLO FUC*ING: $test")
+                val data = usersCollection.findOne(filter = "{ email: '${test.test}' }")
+                call.respond("$data + somee")
             }
         }
         println("Server started on address: http://127.0.0.1:$port")
