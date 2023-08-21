@@ -84,6 +84,10 @@ fun main(args: Array<String>) {
         routing {
             get("/hello") {
                 val test = call.receive<Test>()
+                val databaseTest = koin.get<CoroutineDatabase>()
+                val collection = databaseTest.getCollection<Test>("test")
+                val result = collection.insertOne(test)
+                println("test result: ${result.insertedId}")
                 println("test: $test")
                 println("hello world")
                 call.respond("HELLO FUC*ING: $test")
