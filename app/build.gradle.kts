@@ -23,13 +23,15 @@ dependencies {
     implementation(libs.kmongo.coroutines)
 
     implementation(libs.exposed.core)
-    implementation(libs.exposed.dao)
-    implementation(libs.mysql.connector)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.postgresql.driver)
+    implementation(libs.h2.database)
 
     implementation(projects.domain.authorization)
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.security)
+    implementation(projects.foundation.exposedUtils)
 }
 
 application {
