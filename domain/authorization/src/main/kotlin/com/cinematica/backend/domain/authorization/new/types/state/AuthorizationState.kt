@@ -1,4 +1,4 @@
-package com.cinematica.backend.domain.authorization.old.types.state
+package com.cinematica.backend.domain.authorization.new.types.state
 
 sealed class AuthorizationState(val value: String) {
     data object SignUp : AuthorizationState("sign_up")

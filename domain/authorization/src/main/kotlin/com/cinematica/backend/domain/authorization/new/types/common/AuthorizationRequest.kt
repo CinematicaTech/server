@@ -1,4 +1,4 @@
-package com.cinematica.backend.domain.authorization.old.types.common
+package com.cinematica.backend.domain.authorization.new.types.common
 
 import kotlinx.serialization.Serializable
 import org.valiktor.ConstraintViolationException

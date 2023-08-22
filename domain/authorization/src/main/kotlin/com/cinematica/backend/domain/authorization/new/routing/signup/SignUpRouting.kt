@@ -1,7 +1,7 @@
-package com.cinematica.backend.domain.authorization.old.routing.signup
+package com.cinematica.backend.domain.authorization.new.routing.signup
 
-import com.cinematica.backend.domain.authorization.old.types.common.AuthorizationRequest
-import com.cinematica.backend.domain.authorization.old.usecases.signup.SignUpUseCase
+import com.cinematica.backend.domain.authorization.new.types.common.AuthorizationRequest
+import com.cinematica.backend.domain.authorization.new.usecases.SignUpUseCase
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receiveNullable
@@ -12,7 +12,7 @@ import io.ktor.server.routing.post
 fun Route.signUpRouting(
     signUpUseCase: SignUpUseCase
 ) {
-    post("/auth/signup") {
+    post("auth/signup") {
         val authorizationRequest = kotlin.runCatching {
             call.receiveNullable<AuthorizationRequest>()
         }.getOrNull() ?: kotlin.run {
@@ -25,10 +25,6 @@ fun Route.signUpRouting(
             return@post
         }
 
-        val result = signUpUseCase.execute(authorizationRequest)
 
-        result.getOrNull()?.let { request ->
-            call.respond(HttpStatusCode.OK, request)
-        } ?: call.respond(HttpStatusCode.BadRequest, result.exceptionOrNull()?.message.toString())
     }
 }
