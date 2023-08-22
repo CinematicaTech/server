@@ -1,6 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow.jar)
+    application
 }
 
 dependencies {
@@ -18,8 +22,23 @@ dependencies {
     implementation(libs.kmongo.core)
     implementation(libs.kmongo.coroutines)
 
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.postgresql.driver)
+    implementation(libs.h2.database)
+
     implementation(projects.domain.authorization)
     implementation(projects.data.authorization)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.security)
+    implementation(projects.foundation.exposedUtils)
+}
+
+application {
+    mainClass.set("com.cinematica.backend.app.ApplicationKt")
+}
+
+tasks.withType<ShadowJar> {
+    archiveBaseName.set("application")
+    archiveClassifier.set("")
 }

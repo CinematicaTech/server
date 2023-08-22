@@ -24,6 +24,7 @@ include(":app")
 include(
     ":foundation:cli-arguments",
     ":foundation:security",
+    ":foundation:exposed-utils",
 )
 
 include(
