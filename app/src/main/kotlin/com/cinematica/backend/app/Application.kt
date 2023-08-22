@@ -9,7 +9,7 @@ import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.dependencies.configuration.DatabaseConfig
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
-import com.cinematica.backend.domain.authorization.types.Test
+import com.cinematica.backend.domain.authorization.old.types.Test
 import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import com.cinematica.backend.foundation.exposed.suspendedTransaction

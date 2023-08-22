@@ -1,15 +1,11 @@
 package com.cinematica.backend.app.dependencies
 
-import com.cinematica.backend.data.authorization.datasource.MongoAuthorizationDatasourceRepository
-import com.cinematica.backend.data.authorization.repository.AuthorizationRepositoryImpl
-import com.cinematica.backend.domain.authorization.datasource.AuthorizationDatasourceRepository
-import com.cinematica.backend.domain.authorization.mapper.AuthorizationDomainMapper
-import com.cinematica.backend.data.authorization.mapper.AuthorizationDataMapper
-import com.cinematica.backend.data.authorization.mapper.AuthorizationDatasourceMapper
-import com.cinematica.backend.domain.authorization.repository.AuthorizationRepository
-import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
-import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
-import com.cinematica.backend.domain.authorization.usecases.state.AuthorizationStateUseCase
+import com.cinematica.backend.domain.authorization.old.datasource.AuthorizationDatasourceRepository
+import com.cinematica.backend.domain.authorization.old.mapper.AuthorizationDomainMapper
+import com.cinematica.backend.domain.authorization.old.repository.AuthorizationRepository
+import com.cinematica.backend.domain.authorization.old.usecases.signup.SignUpUseCase
+import com.cinematica.backend.domain.authorization.old.usecases.signin.SignInUseCase
+import com.cinematica.backend.domain.authorization.old.usecases.state.AuthorizationStateUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
