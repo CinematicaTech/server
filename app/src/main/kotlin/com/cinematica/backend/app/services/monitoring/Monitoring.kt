@@ -7,7 +7,7 @@ import io.ktor.server.plugins.callloging.*
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
-        level = Level.DEBUG
+        level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
     }
 }

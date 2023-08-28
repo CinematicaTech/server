@@ -9,7 +9,8 @@ kmongo = "4.8.0"
 valiktor = "0.12.0"
 codec = "1.15"
 jwt = "4.3.0"
-exposed = "0.42.1"
+exposed = "0.42.0"
+ktorm = "3.6.0"
 
 [libraries]
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -23,7 +24,7 @@ slf4j-nop = { module = "org.slf4j:slf4j-nop", version.require = "1.7.25" }
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
-ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging-jvm", version.ref = "ktor" }
 ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
 ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -43,10 +44,14 @@ exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "e
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 
 h2-database = { module = "com.h2database:h2", version.require = "2.1.214" }
-postgresql-driver = { module = "org.postgresql:postgresql", version.require = "42.6.0" }
+ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm" }
+ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm" }
+mysql-connector = { module = "mysql:mysql-connector-java", version.require = "8.0.33" }
 
 codec-core = { module = "commons-codec:commons-codec", version.ref = "codec" }
 jwt-core = { module = "com.auth0:java-jwt", version.ref = "jwt" }
+
+logback-classic = { module = "ch.qos.logback:logback-classic", version.require = "1.2.11" }
 
 valiktor-core = { module = "org.valiktor:valiktor-core", version.ref = "valiktor" }
 

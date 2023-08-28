@@ -8,23 +8,21 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.slf4j.nop)
-
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.content.negotiation)
 
+    implementation(libs.logback.classic)
+
     implementation(libs.koin.core)
     implementation(libs.koin.anotations)
 
-    implementation(libs.kmongo.core)
-    implementation(libs.kmongo.coroutines)
+    implementation(libs.ktorm.core)
+    implementation(libs.ktorm.support.mysql)
 
-    implementation(libs.exposed.core)
-    implementation(libs.exposed.jdbc)
-    implementation(libs.postgresql.driver)
+    implementation(libs.mysql.connector)
     implementation(libs.h2.database)
 
     implementation(projects.domain.authorization)

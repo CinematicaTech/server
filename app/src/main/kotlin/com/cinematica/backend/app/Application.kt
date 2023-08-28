@@ -9,27 +9,20 @@ import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.dependencies.configuration.DatabaseConfig
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
-import com.cinematica.backend.domain.authorization.old.types.Test
+import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
+import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
 import com.cinematica.backend.foundation.cli.asArguments
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
-import com.cinematica.backend.foundation.exposed.suspendedTransaction
 import com.cinematica.backend.foundation.security.token.data.TokenConfig
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.routing.get
-import io.ktor.server.routing.routing
-import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.transactions.transaction
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import org.ktorm.database.Database
+import org.ktorm.entity.Entity
+import org.ktorm.schema.Table
+import org.ktorm.schema.int
+import org.ktorm.schema.varchar
 
 fun main(args: Array<String>) {
     val arguments = args.asArguments()
@@ -54,6 +47,14 @@ fun main(args: Array<String>) {
         ?: System.getenv(EnvironmentConstants.APPLICATION_AUDIENCE)
         ?: error(FailureMessages.MISSING_AUDIENCE)
 
+    val user = arguments.getNamedOrNull(ArgumentsConstants.USER)
+        ?: System.getenv(EnvironmentConstants.APPLICATION_USER)
+        ?: error(FailureMessages.MISSING_USER)
+
+    val password = arguments.getNamedOrNull(ArgumentsConstants.PASSWORD)
+        ?: System.getenv(EnvironmentConstants.APPLICATION_PASSWORD)
+        ?: error(FailureMessages.MISSING_PASSWORD)
+
     val dynamicModule = module {
         single<TokenConfig> {
             TokenConfig(
@@ -64,7 +65,7 @@ fun main(args: Array<String>) {
             )
         }
         single {
-            DatabaseConfig(databaseUrl)
+            DatabaseConfig(url = databaseUrl, user = user, password = password)
         }
     }
 
@@ -72,45 +73,11 @@ fun main(args: Array<String>) {
         modules(AppModule + dynamicModule)
     }.koin
 
-    val database = koin.get<Database>()
-
-    transaction(database) {
-        SchemaUtils.create(Users)
-    }
-
     embeddedServer(Netty, port) {
         configureMonitoring()
         configureSerialization()
-//        configureAuthorizationRouting(
-//            signUpUseCase = koin.get<SignUpUseCase>(),
-//            signInUseCase = koin.get<SignInUseCase>(),
-//            authorizationStateUseCase = koin.get<AuthorizationStateUseCase>()
-//        )
-        routing {
-            get("/hello") {
-                val test = call.receive<Test>()
-
-                println("test: $test")
-                println("hello world")
-
-                try {
-                    suspendedTransaction(database) {
-                        Users.insert {
-                            it[username] = test.test
-                        }
-                    }
-                    call.respond("success")
-                } catch (e: Exception) {
-                    println("e: ${e.message}")
-                    call.respond(HttpStatusCode.BadGateway,"failure, e: ${e.message}")
-                }
-            }
-        }
-        println("Server started on address: http://127.0.0.1:$port")
+        configureAuthorizationRouting(
+            signUpUseCase = koin.get<SignUpUseCase>(),
+        )
     }.start(true)
-}
-
-
-object Users : Table() {
-    val username: Column<String> = varchar("name", length = 50)
 }

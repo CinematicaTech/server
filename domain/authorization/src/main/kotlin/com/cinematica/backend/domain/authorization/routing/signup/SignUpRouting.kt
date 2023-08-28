@@ -27,6 +27,8 @@ fun Route.signUpRouting(
 
         val result = signUpUseCase.execute(authorizationRequest)
 
+        println(result)
+
         result.getOrNull()?.let { request ->
             call.respond(HttpStatusCode.OK, request)
         } ?: call.respond(HttpStatusCode.BadRequest, result.exceptionOrNull()?.message.toString())

@@ -6,4 +6,6 @@ internal object FailureMessages {
     const val MISSING_SECRET = "Please provide a secret key."
     const val MISSING_ISSUER = "Please provide an issuer"
     const val MISSING_AUDIENCE = "Please provide an audience."
+    const val MISSING_USER = "Please provide a user."
+    const val MISSING_PASSWORD = "Please provide a password."
 }

@@ -6,4 +6,6 @@ internal object ArgumentsConstants {
     const val SECRET = "SECRET"
     const val ISSUER = "ISSUER"
     const val AUDIENCE = "AUDIENCE"
+    const val USER = "USER"
+    const val PASSWORD = "PASSWORD"
 }

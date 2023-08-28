@@ -1,8 +1,8 @@
 package com.cinematica.backend.app.dependencies
 
 import com.cinematica.backend.app.dependencies.configuration.DatabaseConfig
-import org.jetbrains.exposed.sql.Database
 import org.koin.dsl.module
+import org.ktorm.database.Database
 
 val DatabaseModule = module {
     single {
@@ -10,7 +10,9 @@ val DatabaseModule = module {
 
         Database.connect(
             url = config.url,
-            driver = "org.postgresql.Driver"
+            user = config.user,
+            password = config.password ?: "",
+            driver = "com.mysql.cj.jdbc.Driver"
         )
     }
 }
