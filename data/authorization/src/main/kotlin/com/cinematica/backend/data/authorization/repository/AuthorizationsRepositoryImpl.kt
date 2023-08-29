@@ -5,6 +5,8 @@ import com.cinematica.backend.domain.authorization.datasource.AuthorizationsData
 import com.cinematica.backend.domain.authorization.repository.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.types.authorization.AuthorizationRequest
 import com.cinematica.backend.domain.authorization.types.authorization.AuthorizationResponse
+import com.cinematica.backend.domain.authorization.types.state.AuthorizationState
+import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateRequest
 import com.cinematica.backend.foundation.security.hashing.HashingService
 import com.cinematica.backend.foundation.security.hashing.data.SaltedHash
 import com.cinematica.backend.foundation.security.token.data.TokenClaim
@@ -64,6 +66,17 @@ class AuthorizationsRepositoryImpl(
                 )
             )
             Result.success(AuthorizationResponse(token))
+        }
+    }
+
+    override suspend fun state(authorizationStateRequest: AuthorizationStateRequest): AuthorizationState {
+        val user = authorizationsDataSourceRepository.getUserByEmail(
+            authorizationStateRequest.email
+        ).getOrNull()
+
+        return when (user) {
+            null -> AuthorizationState.SignUp
+            else -> AuthorizationState.SignIn
         }
     }
 }

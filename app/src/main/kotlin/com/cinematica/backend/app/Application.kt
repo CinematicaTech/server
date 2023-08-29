@@ -78,7 +78,8 @@ fun main(args: Array<String>) {
         configureSerialization()
         configureAuthorizationRouting(
             signUpUseCase = koin.get(),
-            signInUseCase = koin.get()
+            signInUseCase = koin.get(),
+            getAuthorizationStateUseCase = koin.get(),
         )
     }.start(true)
 }
