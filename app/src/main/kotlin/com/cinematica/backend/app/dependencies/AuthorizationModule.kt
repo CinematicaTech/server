@@ -8,6 +8,7 @@ import com.cinematica.backend.data.authorization.repository.AuthorizationsReposi
 import com.cinematica.backend.domain.authorization.datasource.AuthorizationsDataSourceRepository
 import com.cinematica.backend.domain.authorization.repository.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.usecases.signup.SignUpUseCase
+import com.cinematica.backend.domain.authorization.usecases.signin.SignInUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -35,4 +36,5 @@ val AuthorizationModule = module {
     }
     singleOf(::AuthorizationsMapper)
     singleOf(::SignUpUseCase)
+    singleOf(::SignInUseCase)
 }

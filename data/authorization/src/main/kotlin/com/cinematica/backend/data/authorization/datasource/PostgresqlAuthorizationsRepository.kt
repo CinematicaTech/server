@@ -11,4 +11,8 @@ class PostgresqlAuthorizationsRepository(
     override suspend fun createAccount(userData: UserData) {
         tableAuthorizationsDataSource.createAccount(userData)
     }
+
+    override fun getUserByEmail(email: String): Result<UserData> {
+        return tableAuthorizationsDataSource.getUserByEmail(email)
+    }
 }

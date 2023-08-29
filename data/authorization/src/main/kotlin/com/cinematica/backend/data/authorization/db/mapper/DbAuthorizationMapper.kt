@@ -1,14 +1,14 @@
 package com.cinematica.backend.data.authorization.db.mapper
 
-import com.cinematica.backend.data.authorization.db.entities.DbAuthorization
-import com.cinematica.backend.data.authorization.db.table.AuthorizationUsersTable
+import com.cinematica.backend.data.authorization.db.table.AuthorizationUsersEntity
+import com.cinematica.backend.domain.authorization.types.common.UserData
 
 class DbAuthorizationMapper {
-//    fun resultRowToDbAuthorization(row: ResultRow): DbAuthorization {
-//        return DbAuthorization(
-//            email = row[AuthorizationUsersTable.EMAIL],
-//            password = row[AuthorizationUsersTable.PASSWORD],
-//            salt = row[AuthorizationUsersTable.SALT],
-//        )
-//    }
+    fun toUserData(authorizationUsersEntity: AuthorizationUsersEntity): UserData {
+        return UserData(
+            email = authorizationUsersEntity.email,
+            password = authorizationUsersEntity.password,
+            salt = authorizationUsersEntity.salt
+        )
+    }
 }

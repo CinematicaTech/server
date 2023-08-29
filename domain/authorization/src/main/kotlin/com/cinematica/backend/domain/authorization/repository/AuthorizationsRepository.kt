@@ -6,4 +6,6 @@ import com.cinematica.backend.domain.authorization.types.authorization.Authoriza
 interface AuthorizationsRepository {
 
     suspend fun signUp(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse>
+
+    suspend fun signIn(authorizationRequest: AuthorizationRequest): Result<AuthorizationResponse>
 }
