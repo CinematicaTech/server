@@ -21,7 +21,7 @@ fun Route.signUpRouting(
         }
 
         if (authorizationRequest.validationErrorMessage != null) {
-            call.respond(authorizationRequest.validationErrorMessage)
+            call.respond(HttpStatusCode.BadRequest, authorizationRequest.validationErrorMessage)
             return@post
         }
 
