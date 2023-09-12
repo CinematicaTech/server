@@ -12,16 +12,6 @@ fun Application.configureExceptions() {
     install(StatusPages) {
         exception<Throwable> { call, throwable ->
             when (throwable) {
-//                is InterruptedException -> {
-//                    call.respond(
-//                        status = HttpStatusCode.BadRequest,
-//                        message = ExceptionResponse(
-//                            message = "${throwable.message}",
-//                            code = HttpStatusCode.BadRequest.value
-//                        )
-//                    )
-//                }
-
                 is AuthorizationException.SignUpException -> {
 
                 }
@@ -31,7 +21,13 @@ fun Application.configureExceptions() {
                 }
 
                 is AuthorizationException.GetAuthorizationStateException -> {
-
+                    call.respond(
+                        status = HttpStatusCode.BadRequest,
+                        message = ExceptionResponse(
+                            message = "${throwable.message}",
+                            code = HttpStatusCode.BadRequest.value
+                        )
+                    )
                 }
             }
         }

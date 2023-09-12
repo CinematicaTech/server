@@ -5,6 +5,7 @@ import com.cinematica.backend.domain.authorization.types.state.AuthorizationStat
 import com.cinematica.backend.domain.authorization.usecases.state.GetAuthorizationStateUseCase
 import com.cinematica.exception.handling.authorization.AuthorizationException
 import com.cinematica.exception.handling.authorization.ExceptionType
+import com.cinematica.exception.handling.authorization.messages.AuthorizationExceptionMessage
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -19,7 +20,7 @@ fun Route.authorizationStateRouting(getAuthorizationStateUseCase: GetAuthorizati
 
             if (email.isNullOrBlank()) {
                 throw AuthorizationException.createException(
-                    message = "Email parameter is missing or blank.",
+                    message = AuthorizationExceptionMessage.EMAIL_IS_EMPTY,
                     type = ExceptionType.GET_STATE
                 )
             }
