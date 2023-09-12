@@ -9,4 +9,5 @@ dependencies {
     implementation(libs.valiktor.core)
 
     implementation(projects.foundation.security)
+    implementation(projects.foundation.exceptionHandling)
 }

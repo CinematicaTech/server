@@ -7,6 +7,7 @@ import com.cinematica.backend.app.constants.EnvironmentConstants
 import com.cinematica.backend.app.constants.FailureMessages
 import com.cinematica.backend.app.dependencies.AppModule
 import com.cinematica.backend.app.dependencies.configuration.DatabaseConfig
+import com.cinematica.backend.app.services.exceptions.configureExceptions
 import com.cinematica.backend.app.services.monitoring.configureMonitoring
 import com.cinematica.backend.app.services.serialization.configureSerialization
 import com.cinematica.backend.domain.authorization.routing.configureAuthorizationRouting
@@ -76,6 +77,8 @@ fun main(args: Array<String>) {
     embeddedServer(Netty, port) {
         configureMonitoring()
         configureSerialization()
+        configureExceptions()
+
         configureAuthorizationRouting(
             signUpUseCase = koin.get(),
             signInUseCase = koin.get(),

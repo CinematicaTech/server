@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.ktor.server.call.logging)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.ktor.status.pages)
 
     implementation(libs.logback.classic)
 
@@ -30,6 +31,7 @@ dependencies {
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.security)
     implementation(projects.foundation.exposedUtils)
+    implementation(projects.foundation.exceptionHandling)
 }
 
 application {

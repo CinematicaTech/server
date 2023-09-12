@@ -25,6 +25,7 @@ include(
     ":foundation:cli-arguments",
     ":foundation:security",
     ":foundation:exposed-utils",
+    ":foundation:exception-handling",
 )
 
 include(

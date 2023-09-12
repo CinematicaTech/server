@@ -3,6 +3,8 @@ package com.cinematica.backend.domain.authorization.routing.state
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateRequest
 import com.cinematica.backend.domain.authorization.types.state.AuthorizationStateResponse
 import com.cinematica.backend.domain.authorization.usecases.state.GetAuthorizationStateUseCase
+import com.cinematica.exception.handling.authorization.AuthorizationException
+import com.cinematica.exception.handling.authorization.ExceptionType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -16,15 +18,19 @@ fun Route.authorizationStateRouting(getAuthorizationStateUseCase: GetAuthorizati
             val email = call.request.queryParameters["email"]
 
             if (email.isNullOrBlank()) {
-                call.respond(HttpStatusCode.BadRequest, "Email parameter is missing or blank.")
-                return@get
+                throw AuthorizationException.createException(
+                    message = "Email parameter is missing or blank.",
+                    type = ExceptionType.GET_STATE
+                )
             }
 
             val authorizationStateData = AuthorizationStateRequest(email = email)
 
             if (authorizationStateData.validationErrorMessage != null) {
-                call.respond(HttpStatusCode.BadRequest, authorizationStateData.validationErrorMessage)
-                return@get
+                throw AuthorizationException.createException(
+                    message = authorizationStateData.validationErrorMessage,
+                    type = ExceptionType.GET_STATE
+                )
             }
 
             val authorizationState = getAuthorizationStateUseCase.execute(authorizationStateData)
