@@ -19,3 +19,10 @@ pluginManagement {
 
 rootProject.name = "cinematica-server"
 
+include(":app")
+
+include(":domain")
+
+include(":data")
+
+include(":infrastructure:grpc-api")
