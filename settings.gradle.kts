@@ -19,19 +19,3 @@ pluginManagement {
 
 rootProject.name = "cinematica-server"
 
-include(":app")
-
-include(
-    ":foundation:cli-arguments",
-    ":foundation:security",
-    ":foundation:exposed-utils",
-    ":foundation:exception-handling",
-)
-
-include(
-    ":domain:authorization",
-)
-
-include(
-    ":data:authorization",
-)
