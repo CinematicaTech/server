@@ -21,8 +21,6 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
         ?: System.getenv(EnvironmentConstants.GRPC_PORT)?.toIntOrNull()
         ?: throw Exception(FailureMessages.MISSING_PORT)
 
-    println("Port: $grpcPort")
-
     val server = ServerBuilder.forPort(grpcPort)
         .addService(TestService() as BindableService)
         .addService(ProtoReflectionService.newInstance())
