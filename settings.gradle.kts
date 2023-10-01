@@ -26,3 +26,4 @@ include(":domain")
 include(":data")
 
 include(":infrastructure:grpc-api")
+include(":foundation:cli-arguments")

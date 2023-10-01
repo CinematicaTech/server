@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
     implementation(projects.infrastructure.grpcApi)
+    implementation(projects.foundation.cliArguments)
 
     implementation(libs.kotlinx.serialization)
     implementation(libs.kotlinx.coroutines)
@@ -28,7 +29,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.timemates.backend.application.ApplicationKt")
+    mainClass.set("com.cinematica.server.app.ApplicationKt")
 }
 
 
