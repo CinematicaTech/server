@@ -10,15 +10,14 @@ plugins {
 dependencies {
     implementation(projects.infrastructure.grpcApi)
     implementation(projects.foundation.cliArguments)
+    implementation(projects.foundation.exposedUtils)
 
     implementation(libs.kotlinx.serialization)
     implementation(libs.kotlinx.coroutines)
 
+    implementation(libs.mysql.connector)
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
-
-    implementation(libs.postgresql.driver)
-    implementation(libs.h2.database)
 
     implementation(libs.grpc.netty)
     implementation(libs.grpc.services)

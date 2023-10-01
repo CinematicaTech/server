@@ -1,7 +1,4 @@
 import com.google.protobuf.gradle.id
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.implementation
-import org.gradle.kotlin.dsl.projects
 
 plugins {
     alias(libs.plugins.kotlin.jvm)

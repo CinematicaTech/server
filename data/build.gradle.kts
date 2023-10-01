@@ -17,10 +17,7 @@ dependencies {
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
 
-    implementation(libs.cache4k)
-
     implementation(libs.kotlinx.coroutines)
-
     implementation(libs.commons.io)
 
     testImplementation(libs.h2.database)

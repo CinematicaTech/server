@@ -4,6 +4,7 @@ kotlinx-coroutines = "1.6.4"
 kotlinx-serialization = "1.4.1"
 ktor = "2.3.0"
 kafka = "3.3.1"
+ktorm = "3.6.0"
 jupiter = "5.4.0"
 exposed = "0.41.1"
 kmongo = "4.8.0"
@@ -47,11 +48,14 @@ litote-kmongo-coroutines = { module = "org.litote.kmongo:kmongo-coroutine", vers
 junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jupiter" }
 
-h2-database = { module = "com.h2database:h2", version.require = "2.1.214" }
 commons-io = { module = "commons-io:commons-io", version.require = "2.11.0" }
 
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm" }
+h2-database = { module = "com.h2database:h2", version.require = "2.1.214" }
+ktorm-support-mysql = { module = "org.ktorm:ktorm-support-mysql", version.ref = "ktorm" }
+mysql-connector = { module = "mysql:mysql-connector-java", version.require = "8.0.33" }
 
 rsocket-server = { module = "io.rsocket.kotlin:rsocket-ktor-server", version.ref = "rsocket" }
 rsocket-server-websockets = { module = "io.rsocket.kotlin:rsocket-transport-ktor-websocket-server", version.ref = "rsocket" }
