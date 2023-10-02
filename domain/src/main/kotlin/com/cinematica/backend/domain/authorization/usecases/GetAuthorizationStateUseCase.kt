@@ -2,7 +2,7 @@ package com.cinematica.backend.domain.authorization.usecases
 
 import com.cinematica.backend.domain.authorization.repositories.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.types.AuthorizationState
-import com.cinematica.backend.domain.authorization.types.EmailAddress
+import com.cinematica.backend.domain.authorization.types.value.EmailAddress
 import com.cinematica.backend.domain.common.markers.UseCase
 
 class GetAuthorizationStateUseCase(

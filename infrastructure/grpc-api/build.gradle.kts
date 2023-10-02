@@ -6,6 +6,8 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.domain)
+
     implementation(libs.kotlinx.coroutines)
     implementation(libs.grpc.kotlin.stub)
     implementation(libs.grpc.protobuf)

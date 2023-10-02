@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.foundation.validation)
+    api(projects.foundation.validation)
 
     implementation(libs.kotlinx.coroutines)
 

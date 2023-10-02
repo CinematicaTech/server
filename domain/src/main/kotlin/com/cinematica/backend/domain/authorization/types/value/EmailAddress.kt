@@ -1,4 +1,4 @@
-package com.cinematica.backend.domain.authorization.types
+package com.cinematica.backend.domain.authorization.types.value
 
 import com.cinematica.backend.foundation.validation.FailureMessage
 import com.cinematica.backend.foundation.validation.SafeConstructor

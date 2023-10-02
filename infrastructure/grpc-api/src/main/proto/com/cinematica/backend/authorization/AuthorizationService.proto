@@ -6,5 +6,5 @@ import "com/cinematica/backend/authorization/requests/GetAuthorizationStateReque
 option java_package = "com.cinematica.backend.authorization";
 
 service AuthorizationService {
-  rpc getAuthorizationState(GetAuthorizationStateRequest) returns (GetAuthorizationStateRequest.Result);
+  rpc getAuthorizationState(GetAuthorizationStateRequest) returns (GetAuthorizationStateRequest.Response);
 }
