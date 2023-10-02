@@ -26,5 +26,9 @@ include(":domain")
 include(":data")
 
 include(":infrastructure:grpc-api")
-include(":foundation:cli-arguments")
-include(":foundation:exposed-utils")
+
+include(
+    ":foundation:cli-arguments",
+    ":foundation:exposed-utils",
+    ":foundation:validation"
+)

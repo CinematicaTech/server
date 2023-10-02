@@ -3,7 +3,10 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.foundation.validation)
+
     implementation(libs.kotlinx.coroutines)
+
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockk)
