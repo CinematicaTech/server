@@ -2,7 +2,7 @@ package com.cinematica.backend.data.authorization
 
 import com.cinematica.backend.domain.authorization.repositories.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.types.AuthorizationState
-import com.cinematica.backend.domain.authorization.types.value.EmailAddress
+import com.cinematica.backend.domain.users.types.value.EmailAddress
 
 class MysqlAuthorizationsRepository : AuthorizationsRepository {
     override suspend fun getAuthorizationState(emailAddress: EmailAddress): AuthorizationState {

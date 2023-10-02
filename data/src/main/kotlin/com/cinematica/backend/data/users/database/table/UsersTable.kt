@@ -1,4 +1,4 @@
-package com.cinematica.backend.data.authorization.database.table
+package com.cinematica.backend.data.users.database.table
 
 import org.jetbrains.exposed.sql.Table
 

@@ -30,5 +30,6 @@ include(":infrastructure:grpc-api")
 include(
     ":foundation:cli-arguments",
     ":foundation:exposed-utils",
-    ":foundation:validation"
+    ":foundation:validation",
+    ":foundation:authorization",
 )

@@ -1,5 +1,6 @@
 package com.cinematica.backend.data.authorization.database.table
 
+import com.cinematica.backend.data.users.database.table.UsersTable
 import org.jetbrains.exposed.sql.Table
 
 object AuthorizationsTable : Table("authorizations") {

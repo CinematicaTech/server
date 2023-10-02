@@ -3,7 +3,7 @@ package com.cinematica.backend.infrastructure.grpc.authorization
 import com.cinematica.backend.authorization.AuthorizationServiceGrpcKt.AuthorizationServiceCoroutineImplBase
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestKt
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestOuterClass.GetAuthorizationStateRequest
-import com.cinematica.backend.domain.authorization.types.value.EmailAddress
+import com.cinematica.backend.domain.users.types.value.EmailAddress
 import com.cinematica.backend.domain.authorization.usecases.GetAuthorizationStateUseCase
 import com.cinematica.backend.infrastructure.grpc.common.markers.GrpcService
 import com.cinematica.backend.infrastructure.grpc.common.validation.createOrStatus
