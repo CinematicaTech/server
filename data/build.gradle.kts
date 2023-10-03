@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation(projects.domain)
+    implementation(projects.foundation.exposedUtils)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)

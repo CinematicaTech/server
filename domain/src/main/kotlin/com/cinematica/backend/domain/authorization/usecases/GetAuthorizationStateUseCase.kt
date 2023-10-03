@@ -7,7 +7,7 @@ import com.cinematica.backend.domain.common.markers.UseCase
 
 class GetAuthorizationStateUseCase(
     private val authorizationsRepository: AuthorizationsRepository
-) : UseCase {
+): UseCase {
 
     suspend fun execute(emailAddress: EmailAddress): Result {
         return Result.Success(authorizationsRepository.getAuthorizationState(emailAddress))
