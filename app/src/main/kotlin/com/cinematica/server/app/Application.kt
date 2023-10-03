@@ -4,7 +4,8 @@ package com.cinematica.server.app
 
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import com.cinematica.backend.foundation.cli.parseArguments
-import com.cinematica.backend.infrastructure.grpc.example.TestService
+import com.cinematica.backend.infrastructure.grpc.authorization.AuthorizationService
+import com.cinematica.backend.infrastructure.grpc.users.UsersService
 import com.cinematica.server.app.constants.ArgumentsConstants
 import com.cinematica.server.app.constants.EnvironmentConstants
 import com.cinematica.server.app.constants.FailureMessages
@@ -52,7 +53,8 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
     }.koin
 
     val server = ServerBuilder.forPort(grpcPort)
-        .addService(TestService() as BindableService)
+        .addService(koin.get<AuthorizationService>() as BindableService)
+        .addService(koin.get<UsersService>() as BindableService)
         .addService(ProtoReflectionService.newInstance())
         .build()
 

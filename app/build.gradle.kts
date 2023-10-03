@@ -11,6 +11,9 @@ dependencies {
     implementation(projects.infrastructure.grpcApi)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.exposedUtils)
+    implementation(projects.infrastructure.grpcApi)
+    implementation(projects.domain)
+    implementation(projects.data)
 
     implementation(libs.kotlinx.serialization)
     implementation(libs.kotlinx.coroutines)

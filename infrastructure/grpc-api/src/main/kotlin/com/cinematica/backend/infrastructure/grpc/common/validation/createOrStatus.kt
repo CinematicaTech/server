@@ -2,9 +2,9 @@ package com.cinematica.backend.infrastructure.grpc.common.validation
 
 import com.cinematica.backend.foundation.validation.SafeConstructor
 import com.cinematica.backend.foundation.validation.ValidationFailureHandler
+import com.cinematica.backend.infrastructure.grpc.common.markers.GrpcContext
 import io.grpc.Status
 import io.grpc.StatusException
-import com.cinematica.backend.infrastructure.grpc.common.markers.GrpcContext
 
 /**
  * A [ValidationFailureHandler] that always throws a [StatusException] with a

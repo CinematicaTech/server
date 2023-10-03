@@ -1,10 +1,16 @@
 package com.cinematica.backend.data.users
 
+import com.cinematica.backend.data.users.database.TableUsersDataSource
 import com.cinematica.backend.domain.users.repositories.UsersRepository
 import com.cinematica.backend.domain.users.types.value.EmailAddress
 
-class MysqlUsersRepository : UsersRepository {
+class MysqlUsersRepository(
+    private val tableUsersDataSource: TableUsersDataSource
+) : UsersRepository {
     override suspend fun createUser(emailAddress: EmailAddress) {
-        TODO("Not yet implemented")
+    }
+
+    override suspend fun isUserExists(emailAddress: EmailAddress): Boolean {
+        return tableUsersDataSource.isUserExist(emailAddress.string)
     }
 }

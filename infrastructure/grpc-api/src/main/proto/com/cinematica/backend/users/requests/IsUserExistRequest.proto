@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.cinematica.backend.authorization.requests";
+
+message IsUserExistRequest {
+  string emailAddress = 1;
+
+  message Response {
+    bool isUserExist = 1;
+  }
+}

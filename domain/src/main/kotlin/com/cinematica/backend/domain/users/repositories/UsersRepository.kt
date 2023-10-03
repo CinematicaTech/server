@@ -7,6 +7,7 @@ interface UsersRepository : Repository {
 
     suspend fun createUser(
         emailAddress: EmailAddress,
-
     )
+
+    suspend fun isUserExists(emailAddress: EmailAddress): Boolean
 }

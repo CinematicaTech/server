@@ -1,6 +1,5 @@
 package com.cinematica.backend.data.users.database
 
-import com.cinematica.backend.data.users.database.entities.DatabaseUser
 import com.cinematica.backend.data.users.database.mapper.DatabaseUsersMapper
 import com.cinematica.backend.data.users.database.table.UsersTable
 import com.cinematica.backend.foundation.exposed.suspendedTransaction
@@ -19,9 +18,10 @@ class TableUsersDataSource(
         }
     }
 
-    suspend fun getUserByEmail(email: String): DatabaseUser? = suspendedTransaction(database) {
-        UsersTable.select {
+    suspend fun isUserExist(email: String): Boolean = suspendedTransaction(database) {
+        val user = UsersTable.select {
             UsersTable.USER_EMAIL eq email
-        }.singleOrNull()?.let(mapper::resultRowToDatabaseUser)
+        }.singleOrNull()
+        user != null
     }
 }
