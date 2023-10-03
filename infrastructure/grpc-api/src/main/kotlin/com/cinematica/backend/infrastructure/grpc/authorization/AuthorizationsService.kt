@@ -8,7 +8,7 @@ import com.cinematica.backend.domain.users.types.value.EmailAddress
 import com.cinematica.backend.infrastructure.grpc.common.markers.GrpcService
 import com.cinematica.backend.infrastructure.grpc.common.validation.createOrStatus
 
-class AuthorizationService(
+class AuthorizationsService(
     private val getAuthorizationStateUseCase: GetAuthorizationStateUseCase
 ) : AuthorizationServiceCoroutineImplBase(), GrpcService {
 
