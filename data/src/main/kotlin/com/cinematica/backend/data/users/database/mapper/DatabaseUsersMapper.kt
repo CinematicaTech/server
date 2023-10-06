@@ -9,9 +9,8 @@ class DatabaseUsersMapper {
         return DatabaseUser(
             id = row[UsersTable.USER_ID],
             email = row[UsersTable.USER_EMAIL],
-            nickname = row[UsersTable.USER_NICKNAME],
-            firstName = row[UsersTable.USER_FIRST_NAME],
-            lastName = row[UsersTable.USER_LAST_NAME],
+            name = row[UsersTable.USER_NAME],
+            password = row[UsersTable.USER_PASSWORD]
         )
     }
 }

@@ -32,4 +32,6 @@ include(
     ":foundation:exposed-utils",
     ":foundation:validation",
     ":foundation:authorization",
+    ":foundation:time",
+    ":foundation:hashing",
 )
