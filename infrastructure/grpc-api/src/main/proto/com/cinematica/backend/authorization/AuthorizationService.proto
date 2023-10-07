@@ -7,4 +7,6 @@ option java_package = "com.cinematica.backend.authorization";
 
 service AuthorizationService {
   rpc getAuthorizationState(GetAuthorizationStateRequest) returns (GetAuthorizationStateRequest.Response);
+
+  rpc configureNewAccount(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

@@ -9,7 +9,7 @@ import com.cinematica.backend.foundation.validation.reflection.wrapperTypeName
 value class RefreshHash private constructor(val string: String) {
     companion object : SafeConstructor<RefreshHash, String>() {
         override val displayName: String by wrapperTypeName()
-        const val SIZE = 128
+         const val SIZE = 128
 
         context(ValidationFailureHandler)
         override fun create(value: String): RefreshHash {
