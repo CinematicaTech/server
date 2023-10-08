@@ -35,3 +35,4 @@ include(
     ":foundation:time",
     ":foundation:hashing",
 )
+include(":foundation:random")

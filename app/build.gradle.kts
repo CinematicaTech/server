@@ -11,7 +11,7 @@ dependencies {
     implementation(projects.infrastructure.grpcApi)
     implementation(projects.foundation.cliArguments)
     implementation(projects.foundation.exposedUtils)
-    implementation(projects.infrastructure.grpcApi)
+    implementation(projects.foundation.hashing)
     implementation(projects.domain)
     implementation(projects.data)
 

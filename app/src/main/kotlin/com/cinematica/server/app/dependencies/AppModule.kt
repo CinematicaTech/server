@@ -5,5 +5,6 @@ val AppModule = listOf(
     AuthorizationsModule,
     UsersModule,
     GrpcServicesModule,
-    CommonModule
+    CommonModule,
+    SecurityModule
 )
