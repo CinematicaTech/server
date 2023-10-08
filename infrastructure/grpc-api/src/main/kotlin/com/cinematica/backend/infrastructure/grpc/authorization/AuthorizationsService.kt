@@ -34,10 +34,10 @@ class AuthorizationsService(
 
         return when (val result = getAuthorizationStateUseCase.execute(email)) {
             is GetAuthorizationStateUseCase.Result.Success -> GetAuthorizationStateRequestKt.response {
-            authorizationMethod = result.authorizationState.state
+                authorizationMethod = result.authorizationState.state
+            }
         }
     }
-}
 
     override suspend fun signUp(
         request: SignUpRequest

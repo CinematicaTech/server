@@ -5,5 +5,5 @@ import "google/protobuf/empty.proto";
 option java_package = "com.cinematica.backend.authorization";
 
 service UsersService {
-
+  rpc somethingTest(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

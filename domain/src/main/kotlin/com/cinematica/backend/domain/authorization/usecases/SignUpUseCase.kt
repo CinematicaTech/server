@@ -44,7 +44,7 @@ class SignUpUseCase(
         val expiresAt = creationTime + 30.days
 
         authorizationsRepository.createAuthorization(
-            userId, refreshHash, expiresAt, creationTime, clientMetadata
+            userId, refreshHash, accessHash, expiresAt, creationTime, clientMetadata
         )
 
         return Result.Success(

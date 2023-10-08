@@ -7,7 +7,9 @@ import com.cinematica.backend.foundation.exposed.suspendedTransaction
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class TableAuthorizationsDataSource(
@@ -24,6 +26,7 @@ class TableAuthorizationsDataSource(
     suspend fun createAuthorization(
         userId: Long,
         refreshHash: String,
+        accessToken: String,
         expiresAt: Long,
         creationTime: Long,
         permissions: DatabaseAuthorization.Permissions,
@@ -34,7 +37,8 @@ class TableAuthorizationsDataSource(
         AuthorizationsTable.insert {
             it[USER_ID] = userId
             it[REFRESH_TOKEN] = refreshHash
-            it[REFRESH_EXPIRES_AT] = expiresAt
+            it[ACCESS_TOKEN] = accessToken
+            it[EXPIRES_AT] = expiresAt
             it[CREATION_TIME] = creationTime
             it[AUTHORIZATIONS_PERMISSION] = permissions.authorization
             it[USERS_PERMISSION] = permissions.users
@@ -42,5 +46,16 @@ class TableAuthorizationsDataSource(
             it[META_CLIENT_VERSION] = metaClientVersion
             it[META_CLIENT_IP_ADDRESS] = metaClientIpAddress
         }.resultedValues
+    }
+
+    suspend fun getAuthorization(
+        accessHash: String,
+        currentTime: Long,
+    ): DatabaseAuthorization? = suspendedTransaction(database) {
+        AuthorizationsTable.select {
+            AuthorizationsTable.ACCESS_TOKEN eq accessHash
+            //and
+//                    (AuthorizationsTable.EXPIRES_AT less currentTime)
+        }.singleOrNull()?.let(mapper::resultRowToDbAuthorization)
     }
 }
