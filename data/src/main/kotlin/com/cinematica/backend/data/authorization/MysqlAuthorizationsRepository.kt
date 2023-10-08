@@ -10,16 +10,15 @@ import com.cinematica.backend.domain.users.types.value.UserId
 import com.cinematica.backend.foundation.time.UnixTime
 
 class MysqlAuthorizationsRepository(
-    private val authorizationsDataSource: TableAuthorizationsDataSource
+    private val authorizationsDataSource: TableAuthorizationsDataSource,
 ) : AuthorizationsRepository {
 
     override suspend fun createAuthorization(
         userId: UserId,
         refreshHash: RefreshHash,
-        accessHash: AccessHash,
-        clientMetadata: ClientMetadata,
         expiresAt: UnixTime,
-        creationTime: UnixTime
+        creationTime: UnixTime,
+        clientMetadata: ClientMetadata,
     ) {
         authorizationsDataSource.createAuthorization(
             userId = userId.long,

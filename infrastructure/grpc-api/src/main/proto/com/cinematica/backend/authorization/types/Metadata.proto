@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option java_package = "com.cinematica.backend.authorization.types";
 
-message Authorization {
-  string refreshToken = 1;
-  string accessToken = 2;
+message Metadata {
+  string clientName = 1;
+  double clientVersion = 2;
 }

@@ -36,11 +36,11 @@ class TableAuthorizationsDataSource(
             it[REFRESH_TOKEN] = refreshHash
             it[REFRESH_EXPIRES_AT] = expiresAt
             it[CREATION_TIME] = creationTime
+            it[AUTHORIZATIONS_PERMISSION] = permissions.authorization
+            it[USERS_PERMISSION] = permissions.users
             it[META_CLIENT_NAME] = metaClientName
             it[META_CLIENT_VERSION] = metaClientVersion
             it[META_CLIENT_IP_ADDRESS] = metaClientIpAddress
-            it[AUTHORIZATIONS_PERMISSION] = permissions.authorization
-            it[USERS_PERMISSION] = permissions.users
         }.resultedValues
     }
 }

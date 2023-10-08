@@ -2,6 +2,8 @@ package com.cinematica.backend.domain.authorization.usecases
 
 import com.cinematica.backend.domain.authorization.repositories.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.types.Authorization
+import com.cinematica.backend.domain.authorization.types.metadata.ClientMetadata
+import com.cinematica.backend.domain.authorization.types.metadata.value.ClientName
 import com.cinematica.backend.domain.authorization.types.value.AccessHash
 import com.cinematica.backend.domain.authorization.types.value.RefreshHash
 import com.cinematica.backend.domain.common.markers.UseCase
@@ -15,6 +17,7 @@ import com.cinematica.backend.foundation.hashing.HashingRepository
 import com.cinematica.backend.foundation.random.RandomProvider
 import com.cinematica.backend.foundation.time.TimeProvider
 import com.cinematica.backend.foundation.validation.createOrThrowInternally
+import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.days
 
 class SignUpUseCase(
@@ -28,7 +31,8 @@ class SignUpUseCase(
     suspend fun execute(
         emailAddress: EmailAddress,
         userName: UserName,
-        userPassword: UserPassword
+        userPassword: UserPassword,
+        clientMetadata: ClientMetadata
     ): Result {
         val hashedPassword =  hashingRepository.hashPassword(userPassword.string)
         val password = PasswordHash.createOrThrowInternally(hashedPassword)
@@ -40,7 +44,7 @@ class SignUpUseCase(
         val expiresAt = creationTime + 30.days
 
         authorizationsRepository.createAuthorization(
-            userId, refreshHash, accessHash, expiresAt, creationTime
+            userId, refreshHash, expiresAt, creationTime, clientMetadata
         )
 
         return Result.Success(
@@ -50,7 +54,8 @@ class SignUpUseCase(
                 refreshAccessHash = refreshHash,
                 scopes = listOf(Scope.All),
                 expiresAt = expiresAt,
-                creationTime = creationTime,
+                createdAt = creationTime,
+                clientMetadata = clientMetadata
             )
         )
     }

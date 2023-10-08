@@ -2,13 +2,16 @@ syntax = "proto3";
 
 option java_package = "com.cinematica.backend.authorization.requests";
 
+import "com/cinematica/backend/authorization/types/Authorization.proto";
+import "com/cinematica/backend/authorization/types/Metadata.proto";
+
 message SignUpRequest {
   string emailAddress = 1;
   string password = 2;
   string username = 3;
+  Metadata metadata = 4;
 
   message Response {
-    string refreshToken = 1;
-    string accessToken = 2;
+    Authorization authorization = 1;
   }
 }
