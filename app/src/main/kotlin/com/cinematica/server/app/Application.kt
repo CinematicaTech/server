@@ -5,6 +5,9 @@ package com.cinematica.server.app
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import com.cinematica.backend.foundation.cli.parseArguments
 import com.cinematica.backend.infrastructure.grpc.authorization.AuthorizationsService
+import com.cinematica.backend.infrastructure.grpc.authorization.interceptor.AuthorizationInterceptor
+import com.cinematica.backend.infrastructure.grpc.authorization.interceptor.IpAddressInterceptor
+import com.cinematica.backend.infrastructure.grpc.authorization.provider.AuthorizationProvider
 import com.cinematica.backend.infrastructure.grpc.users.UsersService
 import com.cinematica.server.app.constants.ArgumentsConstants
 import com.cinematica.server.app.constants.EnvironmentConstants
@@ -13,10 +16,12 @@ import com.cinematica.server.app.dependencies.AppModule
 import com.cinematica.server.app.dependencies.configuration.DatabaseConfig
 import io.grpc.BindableService
 import io.grpc.ServerBuilder
+import io.grpc.ServerInterceptor
 import io.grpc.protobuf.services.ProtoReflectionService
 import kotlinx.coroutines.coroutineScope
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 suspend fun main(args: Array<String>): Unit = coroutineScope {
@@ -46,6 +51,7 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
 
     val dynamicModule = module {
         single<DatabaseConfig> { databaseConfig }
+        singleOf(::AuthorizationProvider)
     }
 
     val koin = startKoin {
@@ -56,6 +62,8 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
         .addService(koin.get<AuthorizationsService>() as BindableService)
         .addService(koin.get<UsersService>() as BindableService)
         .addService(ProtoReflectionService.newInstance())
+        .intercept(AuthorizationInterceptor(koin.get()) as ServerInterceptor)
+        .intercept(IpAddressInterceptor() as ServerInterceptor)
         .build()
 
     server.start()
