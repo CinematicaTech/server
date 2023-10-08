@@ -40,8 +40,6 @@ class AuthorizationsService(
         return when (val result = signUpUseCase.execute(email, username, password)) {
             else -> {
                 SignUpRequestKt.response {
-                    refreshToken = ""
-                    accessToken =  ""
                 }
             }
         }

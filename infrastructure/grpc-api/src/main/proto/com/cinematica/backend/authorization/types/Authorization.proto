@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "io.timemates.api.authorizations.types";
+
+message Authorization {
+
+  optional Hash accessHash = 1;
+
+  optional Hash refreshHash = 2;
+  int64 generationTime = 3;
+
+  message Hash {
+    string value = 1;
+    int64 expiresAt = 2;
+  }
+}

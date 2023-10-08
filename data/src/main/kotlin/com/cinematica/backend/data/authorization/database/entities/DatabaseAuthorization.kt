@@ -15,15 +15,11 @@ data class DatabaseAuthorization(
     data class Permissions(
         val authorization: GrantLevel,
         val users: GrantLevel,
-        val timers: GrantLevel,
-        val files: GrantLevel,
     ) {
         companion object {
             val All = Permissions(
                 authorization = GrantLevel.WRITE,
                 users = GrantLevel.WRITE,
-                timers = GrantLevel.WRITE,
-                files = GrantLevel.WRITE,
             )
         }
 

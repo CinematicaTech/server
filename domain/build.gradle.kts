@@ -6,6 +6,7 @@ dependencies {
     api(projects.foundation.validation)
     api(projects.foundation.authorization)
     api(projects.foundation.hashing)
+    api(projects.foundation.random)
     api(projects.foundation.time)
 
     implementation(libs.kotlinx.coroutines)
