@@ -3,6 +3,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "com/cinematica/backend/authorization/requests/GetAuthorizationStateRequest.proto";
 import "com/cinematica/backend/authorization/requests/SignUpRequest.proto";
+import "com/cinematica/backend/authorization/requests/SignInRequest.proto";
 
 option java_package = "com.cinematica.backend.authorization";
 
@@ -10,4 +11,6 @@ service AuthorizationService {
   rpc getAuthorizationState(GetAuthorizationStateRequest) returns (GetAuthorizationStateRequest.Response);
 
   rpc signUp(SignUpRequest) returns (SignUpRequest.Response);
+
+  rpc signIn(SignInRequest) returns (SignInRequest.Response);
 }

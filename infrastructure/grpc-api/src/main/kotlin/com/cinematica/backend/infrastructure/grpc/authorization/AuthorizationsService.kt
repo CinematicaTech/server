@@ -3,11 +3,10 @@ package com.cinematica.backend.infrastructure.grpc.authorization
 import com.cinematica.backend.authorization.AuthorizationServiceGrpcKt.AuthorizationServiceCoroutineImplBase
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestKt
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestOuterClass.GetAuthorizationStateRequest
+import com.cinematica.backend.authorization.requests.SignInRequestOuterClass.SignInRequest
 import com.cinematica.backend.authorization.requests.SignUpRequestKt
 import com.cinematica.backend.authorization.requests.SignUpRequestOuterClass.SignUpRequest
-import com.cinematica.backend.domain.authorization.types.Authorization
 import com.cinematica.backend.domain.authorization.types.metadata.ClientMetadata
-import com.cinematica.backend.domain.authorization.types.metadata.value.ClientIpAddress
 import com.cinematica.backend.domain.authorization.types.metadata.value.ClientName
 import com.cinematica.backend.domain.authorization.types.metadata.value.ClientVersion
 import com.cinematica.backend.domain.authorization.usecases.SignUpUseCase
@@ -63,5 +62,13 @@ class AuthorizationsService(
 
             SignUpUseCase.Result.UserAlreadyExist -> throw StatusException(Status.ALREADY_EXISTS)
         }
+    }
+
+    override suspend fun signIn(
+        request: SignInRequest
+    ): SignInRequest.Response {
+
+
+        return super.signIn(request)
     }
 }
