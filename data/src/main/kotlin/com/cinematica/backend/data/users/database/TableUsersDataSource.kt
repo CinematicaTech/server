@@ -31,9 +31,16 @@ class TableUsersDataSource(
         }.resultedValues!!.single().let(mapper::resultRowToDatabaseUser).id
     }
 
-    suspend fun isUserExist(email: String): Boolean = suspendedTransaction(database) {
+    suspend fun isUserExistByEmail(email: String): Boolean = suspendedTransaction(database) {
         val user = UsersTable.select {
             UsersTable.USER_EMAIL eq email
+        }.singleOrNull()
+        user != null
+    }
+
+    suspend fun isUserExistByUserName(username: String): Boolean = suspendedTransaction(database) {
+        val user = UsersTable.select {
+            UsersTable.USER_NAME eq username
         }.singleOrNull()
         user != null
     }

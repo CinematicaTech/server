@@ -6,8 +6,6 @@ import com.cinematica.backend.domain.users.types.value.EmailAddress
 import com.cinematica.backend.domain.users.types.value.PasswordHash
 import com.cinematica.backend.domain.users.types.value.UserId
 import com.cinematica.backend.domain.users.types.value.UserName
-import com.cinematica.backend.domain.users.types.value.UserPassword
-import com.cinematica.backend.foundation.time.UnixTime
 import com.cinematica.backend.foundation.validation.createOrThrowInternally
 
 class MysqlUsersRepository(
@@ -25,7 +23,7 @@ class MysqlUsersRepository(
         ).let { UserId.createOrThrowInternally(it) }
     }
 
-    override suspend fun isUserExists(emailAddress: EmailAddress): Boolean {
-        return tableUsersDataSource.isUserExist(emailAddress.string)
+    override suspend fun isUserExist(emailAddress: EmailAddress): Boolean {
+        return tableUsersDataSource.isUserExistByEmail(emailAddress.string)
     }
 }

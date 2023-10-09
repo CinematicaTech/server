@@ -3,7 +3,6 @@ package com.cinematica.backend.domain.authorization.usecases
 import com.cinematica.backend.domain.authorization.repositories.AuthorizationsRepository
 import com.cinematica.backend.domain.authorization.types.Authorization
 import com.cinematica.backend.domain.authorization.types.metadata.ClientMetadata
-import com.cinematica.backend.domain.authorization.types.metadata.value.ClientName
 import com.cinematica.backend.domain.authorization.types.value.AccessHash
 import com.cinematica.backend.domain.authorization.types.value.RefreshHash
 import com.cinematica.backend.domain.common.markers.UseCase
@@ -17,7 +16,6 @@ import com.cinematica.backend.foundation.hashing.HashingRepository
 import com.cinematica.backend.foundation.random.RandomProvider
 import com.cinematica.backend.foundation.time.TimeProvider
 import com.cinematica.backend.foundation.validation.createOrThrowInternally
-import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.days
 
 class SignUpUseCase(
@@ -34,6 +32,9 @@ class SignUpUseCase(
         userPassword: UserPassword,
         clientMetadata: ClientMetadata
     ): Result {
+        val isUserExist = usersRepository.isUserExist(emailAddress)
+        if (isUserExist) return Result.UserAlreadyExist
+
         val hashedPassword =  hashingRepository.hashPassword(userPassword.string)
         val password = PasswordHash.createOrThrowInternally(hashedPassword)
         val userId = usersRepository.createUser(emailAddress, userName, password)
@@ -62,5 +63,6 @@ class SignUpUseCase(
 
     sealed class Result {
         data class Success(val authorization: Authorization): Result()
+        data object UserAlreadyExist: Result()
     }
 }

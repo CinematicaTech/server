@@ -11,7 +11,7 @@ class GetAuthorizationStateUseCase(
 ): UseCase {
 
     suspend fun execute(emailAddress: EmailAddress): Result {
-        val result = usersRepository.isUserExists(emailAddress)
+        val result = usersRepository.isUserExist(emailAddress)
         return if (result) {
             Result.Success(AuthorizationState(AuthorizationMethod.SIGN_IN.value))
         } else {

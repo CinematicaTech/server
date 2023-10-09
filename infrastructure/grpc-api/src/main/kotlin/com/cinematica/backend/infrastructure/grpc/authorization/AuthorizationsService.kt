@@ -19,6 +19,8 @@ import com.cinematica.backend.infrastructure.grpc.authorization.interceptor.Sess
 import com.cinematica.backend.infrastructure.grpc.authorization.mapper.GrpcAuthorizationsMapper
 import com.cinematica.backend.infrastructure.grpc.common.markers.GrpcService
 import com.cinematica.backend.infrastructure.grpc.common.validation.createOrStatus
+import io.grpc.Status
+import io.grpc.StatusException
 import kotlin.coroutines.coroutineContext
 
 class AuthorizationsService(
@@ -58,6 +60,8 @@ class AuthorizationsService(
                     authorization = mapper.toGrpcAuthorization(result.authorization)
                 }
             }
+
+            SignUpUseCase.Result.UserAlreadyExist -> throw StatusException(Status.ALREADY_EXISTS)
         }
     }
 }
