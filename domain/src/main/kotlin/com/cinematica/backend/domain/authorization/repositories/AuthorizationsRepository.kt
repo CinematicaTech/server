@@ -10,7 +10,7 @@ import com.cinematica.backend.foundation.time.UnixTime
 
 interface AuthorizationsRepository : Repository {
 
-    suspend fun createAuthorization(
+    suspend fun createAccount(
         userId: UserId,
         refreshHash: RefreshHash,
         accessToken: AccessHash,
@@ -19,7 +19,9 @@ interface AuthorizationsRepository : Repository {
         clientMetadata: ClientMetadata,
     )
 
-    suspend fun get(
+    suspend fun signIn()
+
+    suspend fun getAuthorization(
         accessToken: AccessHash,
         afterTime: UnixTime,
     ): Authorization?

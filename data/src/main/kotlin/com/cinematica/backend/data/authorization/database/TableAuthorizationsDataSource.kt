@@ -7,7 +7,6 @@ import com.cinematica.backend.foundation.exposed.suspendedTransaction
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -23,7 +22,7 @@ class TableAuthorizationsDataSource(
         }
     }
 
-    suspend fun createAuthorization(
+    suspend fun createAccount(
         userId: Long,
         refreshHash: String,
         accessToken: String,

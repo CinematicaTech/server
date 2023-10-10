@@ -16,7 +16,7 @@ class MysqlAuthorizationsRepository(
     private val mapper: AuthorizationsMapper
 ) : AuthorizationsRepository {
 
-    override suspend fun createAuthorization(
+    override suspend fun createAccount(
         userId: UserId,
         refreshHash: RefreshHash,
         accessToken: AccessHash,
@@ -24,7 +24,7 @@ class MysqlAuthorizationsRepository(
         creationTime: UnixTime,
         clientMetadata: ClientMetadata,
     ) {
-        authorizationsDataSource.createAuthorization(
+        authorizationsDataSource.createAccount(
             userId = userId.long,
             refreshHash = refreshHash.string,
             accessToken = accessToken.string,
@@ -37,7 +37,11 @@ class MysqlAuthorizationsRepository(
         )
     }
 
-    override suspend fun get(accessToken: AccessHash, afterTime: UnixTime): Authorization? {
+    override suspend fun signIn() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getAuthorization(accessToken: AccessHash, afterTime: UnixTime): Authorization? {
         return authorizationsDataSource.getAuthorization(accessToken.string, afterTime.inMilliseconds)
             ?.let(mapper::dbAuthToDomainAuth)
     }

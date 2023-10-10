@@ -67,6 +67,15 @@ class AuthorizationsService(
     override suspend fun signIn(
         request: SignInRequest
     ): SignInRequest.Response {
+        val email = EmailAddress.createOrStatus(request.emailAddress)
+        val password = UserPassword.createOrStatus(request.password)
+
+        val metadata = ClientMetadata(
+            clientName = ClientName.createOrStatus(request.metadata.clientName),
+            clientVersion = ClientVersion.createOrStatus(request.metadata.clientVersion),
+            clientIpAddress = coroutineContext[SessionContext]!!.ipAddress,
+        )
+
 
 
         return super.signIn(request)

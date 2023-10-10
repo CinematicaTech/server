@@ -12,7 +12,7 @@ class GetAuthorizationUseCase(
     private val timerProvider: TimeProvider,
 ) : UseCase {
     suspend fun execute(accessHash: AccessHash): Result {
-        return authorizationsRepository.get(accessHash, timerProvider.provide() - 7.days)
+        return authorizationsRepository.getAuthorization(accessHash, timerProvider.provide() - 7.days)
             ?.let { Result.Success(it) }
             ?: Result.NotFound
     }

@@ -44,7 +44,7 @@ class SignUpUseCase(
         val creationTime = timeProvider.provide()
         val expiresAt = creationTime + 30.days
 
-        authorizationsRepository.createAuthorization(
+        authorizationsRepository.createAccount(
             userId, refreshHash, accessHash, expiresAt, creationTime, clientMetadata
         )
 
