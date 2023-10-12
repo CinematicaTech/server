@@ -37,12 +37,13 @@ class MysqlAuthorizationsRepository(
         )
     }
 
-    override suspend fun signIn() {
-        TODO("Not yet implemented")
+    override suspend fun getAuthorization(accessToken: AccessHash): Authorization? {
+        return authorizationsDataSource.getAuthorization(accessToken.string)
+            ?.let(mapper::dbAuthToDomainAuth)
     }
 
-    override suspend fun getAuthorization(accessToken: AccessHash, afterTime: UnixTime): Authorization? {
-        return authorizationsDataSource.getAuthorization(accessToken.string, afterTime.inMilliseconds)
+    override suspend fun getAuthorizationByUserId(userId: UserId): Authorization? {
+        return authorizationsDataSource.getAuthorizationByUserId(userId.long)
             ?.let(mapper::dbAuthToDomainAuth)
     }
 }

@@ -9,10 +9,9 @@ import kotlin.time.Duration.Companion.days
 
 class GetAuthorizationUseCase(
     private val authorizationsRepository: AuthorizationsRepository,
-    private val timerProvider: TimeProvider,
 ) : UseCase {
     suspend fun execute(accessHash: AccessHash): Result {
-        return authorizationsRepository.getAuthorization(accessHash, timerProvider.provide() - 7.days)
+        return authorizationsRepository.getAuthorization(accessHash)
             ?.let { Result.Success(it) }
             ?: Result.NotFound
     }

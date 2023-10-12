@@ -35,11 +35,9 @@ class TableUsersDataSource(
 
     suspend fun getUser(
         email: String,
-        password: String
     ): DatabaseUser? = suspendedTransaction(database) {
         UsersTable.select {
             UsersTable.USER_EMAIL eq email
-           // UsersTable.USER_PASSWORD eq password
         }.singleOrNull()?.let(mapper::resultRowToDatabaseUser)
     }
 

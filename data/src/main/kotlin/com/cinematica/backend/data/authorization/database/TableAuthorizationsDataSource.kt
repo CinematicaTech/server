@@ -14,7 +14,6 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class TableAuthorizationsDataSource(
     private val database: Database,
     private val mapper: DatabaseAuthorizationsMapper,
-    private val json: Json = Json,
 ) {
     init {
         transaction(database) {
@@ -49,12 +48,17 @@ class TableAuthorizationsDataSource(
 
     suspend fun getAuthorization(
         accessHash: String,
-        currentTime: Long,
     ): DatabaseAuthorization? = suspendedTransaction(database) {
         AuthorizationsTable.select {
             AuthorizationsTable.ACCESS_TOKEN eq accessHash
-            //and
-//                    (AuthorizationsTable.EXPIRES_AT less currentTime)
+        }.singleOrNull()?.let(mapper::resultRowToDbAuthorization)
+    }
+
+    suspend fun getAuthorizationByUserId(
+        userId: Long
+    ): DatabaseAuthorization? = suspendedTransaction(database) {
+        AuthorizationsTable.select {
+            AuthorizationsTable.USER_ID eq userId
         }.singleOrNull()?.let(mapper::resultRowToDbAuthorization)
     }
 }

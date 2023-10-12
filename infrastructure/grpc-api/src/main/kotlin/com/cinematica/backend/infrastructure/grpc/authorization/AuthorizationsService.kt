@@ -81,13 +81,14 @@ class AuthorizationsService(
             clientIpAddress = coroutineContext[SessionContext]!!.ipAddress,
         )
 
-        val result = signInUseCase.execute(email, password)
-        println(result)
-
-        return SignInRequestKt.response {
-            authorization = authorization {
-                accessToken = "accessToken: $result"
-                refreshToken = "refreshToken $result"
+        return when (val result = signInUseCase.execute(email, password)) {
+            SignInUseCase.Result.PasswordIsWrong -> throw StatusException(Status.INVALID_ARGUMENT)
+            SignInUseCase.Result.NotFound -> throw StatusException(Status.NOT_FOUND)
+            is SignInUseCase.Result.Success -> SignInRequestKt.response {
+                authorization = authorization {
+                    accessToken = result.authorization.accessHash.string
+                    refreshToken = result.authorization.refreshAccessHash.string
+                }
             }
         }
     }

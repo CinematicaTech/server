@@ -2,11 +2,9 @@ package com.cinematica.backend.foundation.hashing
 
 import org.mindrot.jbcrypt.BCrypt
 
-class BCryptHashing(
-    private val salt: Salt
-) : HashingRepository {
+class BCryptHashing : HashingRepository {
     override fun hashPassword(password: String): String {
-        return BCrypt.hashpw(password, salt.value)
+        return BCrypt.hashpw(password, BCrypt.gensalt())
     }
 
     override fun validPassword(password: String, hashedPassword: String): Boolean {

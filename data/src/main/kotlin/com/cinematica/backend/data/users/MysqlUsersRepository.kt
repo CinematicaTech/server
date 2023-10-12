@@ -26,8 +26,8 @@ class MysqlUsersRepository(
         ).let { UserId.createOrThrowInternally(it) }
     }
 
-    override suspend fun getUser(emailAddress: EmailAddress, userPassword: PasswordHash): User? {
-        return tableUsersDataSource.getUser(emailAddress.string, userPassword.hash)?.let {
+    override suspend fun getUser(emailAddress: EmailAddress): User? {
+        return tableUsersDataSource.getUser(emailAddress.string)?.let {
             mapper.dbAuthToDomainAuth(it)
         }
     }

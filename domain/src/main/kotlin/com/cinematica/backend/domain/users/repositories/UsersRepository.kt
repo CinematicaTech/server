@@ -17,7 +17,6 @@ interface UsersRepository : Repository {
 
     suspend fun getUser(
         emailAddress: EmailAddress,
-        userPassword: PasswordHash
     ): User?
 
     suspend fun isUserExist(emailAddress: EmailAddress): Boolean

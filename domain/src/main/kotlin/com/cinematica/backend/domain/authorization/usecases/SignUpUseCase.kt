@@ -38,7 +38,6 @@ class SignUpUseCase(
         val hashedPassword = hashingRepository.hashPassword(userPassword.string)
         val password = PasswordHash.createOrThrowInternally(hashedPassword)
         val userId = usersRepository.createUser(emailAddress, userName, password)
-
         val refreshHash = RefreshHash.createOrThrowInternally(randomProvider.randomHash(RefreshHash.SIZE))
         val accessHash = AccessHash.createOrThrowInternally(randomProvider.randomHash(AccessHash.SIZE))
         val creationTime = timeProvider.provide()

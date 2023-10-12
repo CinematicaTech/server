@@ -19,10 +19,11 @@ interface AuthorizationsRepository : Repository {
         clientMetadata: ClientMetadata,
     )
 
-    suspend fun signIn()
-
     suspend fun getAuthorization(
         accessToken: AccessHash,
-        afterTime: UnixTime,
+    ): Authorization?
+
+    suspend fun getAuthorizationByUserId(
+        userId: UserId
     ): Authorization?
 }
