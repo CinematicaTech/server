@@ -7,4 +7,5 @@ internal object EnvironmentConstants {
     const val DATABASE_URL = "DATABASE_URL"
     const val DATABASE_USER = "DATABASE_USER"
     const val DATABASE_PASSWORD = "DATABASE_PASSWORD"
+    const val DATABASE_SALT = "DATABASE_SALT"
 }

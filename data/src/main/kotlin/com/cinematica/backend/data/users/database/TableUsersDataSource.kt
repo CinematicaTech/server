@@ -1,10 +1,12 @@
 package com.cinematica.backend.data.users.database
 
+import com.cinematica.backend.data.users.database.entities.DatabaseUser
 import com.cinematica.backend.data.users.database.mapper.DatabaseUsersMapper
 import com.cinematica.backend.data.users.database.table.UsersTable
 import com.cinematica.backend.foundation.exposed.suspendedTransaction
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -31,16 +33,19 @@ class TableUsersDataSource(
         }.resultedValues!!.single().let(mapper::resultRowToDatabaseUser).id
     }
 
+    suspend fun getUser(
+        email: String,
+        password: String
+    ): DatabaseUser? = suspendedTransaction(database) {
+        UsersTable.select {
+            UsersTable.USER_EMAIL eq email
+           // UsersTable.USER_PASSWORD eq password
+        }.singleOrNull()?.let(mapper::resultRowToDatabaseUser)
+    }
+
     suspend fun isUserExistByEmail(email: String): Boolean = suspendedTransaction(database) {
         val user = UsersTable.select {
             UsersTable.USER_EMAIL eq email
-        }.singleOrNull()
-        user != null
-    }
-
-    suspend fun isUserExistByUserName(username: String): Boolean = suspendedTransaction(database) {
-        val user = UsersTable.select {
-            UsersTable.USER_NAME eq username
         }.singleOrNull()
         user != null
     }

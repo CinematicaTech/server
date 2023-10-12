@@ -3,14 +3,18 @@ package com.cinematica.backend.infrastructure.grpc.authorization
 import com.cinematica.backend.authorization.AuthorizationServiceGrpcKt.AuthorizationServiceCoroutineImplBase
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestKt
 import com.cinematica.backend.authorization.requests.GetAuthorizationStateRequestOuterClass.GetAuthorizationStateRequest
+import com.cinematica.backend.authorization.requests.SignInRequestKt
 import com.cinematica.backend.authorization.requests.SignInRequestOuterClass.SignInRequest
 import com.cinematica.backend.authorization.requests.SignUpRequestKt
 import com.cinematica.backend.authorization.requests.SignUpRequestOuterClass.SignUpRequest
+import com.cinematica.backend.authorization.types.authorization
+import com.cinematica.backend.domain.authorization.types.Authorization
 import com.cinematica.backend.domain.authorization.types.metadata.ClientMetadata
 import com.cinematica.backend.domain.authorization.types.metadata.value.ClientName
 import com.cinematica.backend.domain.authorization.types.metadata.value.ClientVersion
 import com.cinematica.backend.domain.authorization.usecases.SignUpUseCase
 import com.cinematica.backend.domain.authorization.usecases.GetAuthorizationStateUseCase
+import com.cinematica.backend.domain.authorization.usecases.SignInUseCase
 import com.cinematica.backend.domain.users.types.value.EmailAddress
 import com.cinematica.backend.domain.users.types.value.UserName
 import com.cinematica.backend.domain.users.types.value.UserPassword
@@ -25,6 +29,7 @@ import kotlin.coroutines.coroutineContext
 class AuthorizationsService(
     private val getAuthorizationStateUseCase: GetAuthorizationStateUseCase,
     private val signUpUseCase: SignUpUseCase,
+    private val signInUseCase: SignInUseCase,
     private val mapper: GrpcAuthorizationsMapper
 ) : AuthorizationServiceCoroutineImplBase(), GrpcService {
 
@@ -76,8 +81,14 @@ class AuthorizationsService(
             clientIpAddress = coroutineContext[SessionContext]!!.ipAddress,
         )
 
+        val result = signInUseCase.execute(email, password)
+        println(result)
 
-
-        return super.signIn(request)
+        return SignInRequestKt.response {
+            authorization = authorization {
+                accessToken = "accessToken: $result"
+                refreshToken = "refreshToken $result"
+            }
+        }
     }
 }

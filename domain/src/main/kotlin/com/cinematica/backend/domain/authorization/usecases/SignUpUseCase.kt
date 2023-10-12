@@ -35,7 +35,7 @@ class SignUpUseCase(
         val isUserExist = usersRepository.isUserExist(emailAddress)
         if (isUserExist) return Result.UserAlreadyExist
 
-        val hashedPassword =  hashingRepository.hashPassword(userPassword.string)
+        val hashedPassword = hashingRepository.hashPassword(userPassword.string)
         val password = PasswordHash.createOrThrowInternally(hashedPassword)
         val userId = usersRepository.createUser(emailAddress, userName, password)
 

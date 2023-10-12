@@ -4,6 +4,7 @@ package com.cinematica.server.app
 
 import com.cinematica.backend.foundation.cli.getNamedIntOrNull
 import com.cinematica.backend.foundation.cli.parseArguments
+import com.cinematica.backend.foundation.hashing.Salt
 import com.cinematica.backend.infrastructure.grpc.authorization.AuthorizationsService
 import com.cinematica.backend.infrastructure.grpc.authorization.interceptor.AuthorizationInterceptor
 import com.cinematica.backend.infrastructure.grpc.authorization.interceptor.IpAddressInterceptor
@@ -43,6 +44,10 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
         ?: System.getenv(EnvironmentConstants.DATABASE_PASSWORD)
         ?: error(FailureMessages.MISSING_DATABASE_PASSWORD)
 
+    val salt = arguments.getNamedOrNull(ArgumentsConstants.DATABASE_SALT)
+        ?: System.getenv(EnvironmentConstants.DATABASE_SALT)
+        ?: error(FailureMessages.MISSING_DATABASE_SALT)
+
     val databaseConfig = DatabaseConfig(
         url = databaseUrl,
         user = databaseUser,
@@ -52,6 +57,7 @@ suspend fun main(args: Array<String>): Unit = coroutineScope {
     val dynamicModule = module {
         single<DatabaseConfig> { databaseConfig }
         singleOf(::AuthorizationProvider)
+        single { Salt(salt) }
     }
 
     val koin = startKoin {
